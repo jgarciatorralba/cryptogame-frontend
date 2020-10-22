@@ -16,8 +16,8 @@
 </style>
 
 <script>
-import AppHeader from "../components/Header.vue";
-import Sidebar from "../components/Sidebar.vue";
+import AppHeader from "../components/partials/Header.vue";
+import Sidebar from "../components/partials/Sidebar.vue";
 
 export default {
     data() {
