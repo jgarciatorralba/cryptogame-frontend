@@ -72,13 +72,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  /* GENERAL STYLES */
-  html,
-  body {
-    height: 100%;
-    background-color: #f5f5f5;
-  }
-
   /* REGISTER PAGE */
   .cont-register {
     height: 100vh;

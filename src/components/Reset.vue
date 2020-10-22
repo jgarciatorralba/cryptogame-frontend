@@ -50,13 +50,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  /* GENERAL STYLES */
-  html,
-  body {
-    height: 100%;
-    background-color: #f5f5f5;
-  }
-
   /* RESET PAGE */
   .cont-reset {
     height: 100vh;

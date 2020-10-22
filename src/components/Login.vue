@@ -39,7 +39,7 @@
         <button class="btn btn-lg btn-primary btn-block" type="submit">
           Sign in
         </button>
-        
+
         <p class="my-1">
           Forgot your password?
           <router-link to="/reset" class="text-decoration-none text-body">
@@ -58,14 +58,16 @@
   </div>
 </template>
 
-<style lang="scss" scoped>
+<style>
   /* GENERAL STYLES */
   html,
   body {
     height: 100%;
     background-color: #f5f5f5;
   }
+</style>
 
+<style lang="scss" scoped>
   /* LOGIN PAGE */
   .cont-login {
     height: 100vh;
