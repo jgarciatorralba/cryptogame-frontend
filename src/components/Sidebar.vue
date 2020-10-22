@@ -6,9 +6,10 @@
 		<div>
 			<ul>
 				<li>Username</li>
-				<li>Ranking:</li>
+				<li>Wallet:</li>
 				<li>Last balance:</li>
 				<li>Most bought:</li>
+				<li>Ranking:</li>
 			</ul>
 		</div>
 	</div>
