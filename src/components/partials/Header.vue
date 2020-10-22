@@ -42,7 +42,7 @@
                 </ul>
                 <ul class="my-auto" v-else>
                     <li class="my-auto">
-                        <a class="btn btn-primary">Login</a>
+                        <a class="btn btn-primary"><router-link :to="'/login'">Login</router-link></a>
                     </li>
                 </ul>
             </div>
