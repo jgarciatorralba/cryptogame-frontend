@@ -31,7 +31,7 @@
 </template>
 
 <style lang="scss" scoped>
-  /* GENERAL STYLES */
+  /* GENERAL LOGIN-PAGES STYLES */
   html,
   body {
     height: 100%;
@@ -54,29 +54,25 @@
     max-width: 330px;
     padding: 15px;
     margin: auto;
-  }
-
-  .form-login .form-control {
-    position: relative;
-    box-sizing: border-box;
-    height: auto;
-    padding: 10px;
-    font-size: 16px;
-  }
-
-  .form-login .form-control:focus {
-    z-index: 2;
-  }
-
-  .form-login input[type="email"] {
-    margin-bottom: -1px;
-    border-bottom-right-radius: 0;
-    border-bottom-left-radius: 0;
-  }
-
-  .form-login input[type="password"] {
-    margin-bottom: 10px;
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
+    .form-control {
+      position: relative;
+      box-sizing: border-box;
+      height: auto;
+      padding: 10px;
+      font-size: 16px;
+    }
+    .form-control:focus{
+      z-index: 2;
+    }
+    input[type="email"] {
+      margin-bottom: -1px;
+      border-bottom-right-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+    input[type="password"] {
+      margin-bottom: 10px;
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+    }
   }
 </style>
