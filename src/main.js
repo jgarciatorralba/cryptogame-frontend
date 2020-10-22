@@ -3,6 +3,10 @@ import VueRouter from 'vue-router';
 import App from './App.vue'
 import Home from './components/Home.vue';
 import Login from './components/Login.vue';
+import BootstrapVue from 'bootstrap-vue';
+
+// Install BootstrapVue
+Vue.use(BootstrapVue);
 
 Vue.use(VueRouter);
 
