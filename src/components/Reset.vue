@@ -1,10 +1,10 @@
 <template>
   <div class="container cont-reset">
     <div class="text-center w-100">
-      <form class="form-reset" autocomplete="off" method="POST" action="">
+      <form class="form-reset" autocomplete="off">
 
         <router-link to="/" class="text-decoration-none text-body">
-          <img class="mb-2" src="./assets/img/cryptos.png" alt="" width="100" height="100">
+          <img class="mb-2" src="../assets/img/cryptos.png" alt="" width="100" height="100">
         </router-link>
 
         <h1 class="h3 font-weight-normal">
@@ -50,34 +50,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  /* RESET PAGE */
-  .cont-reset {
-    height: 100vh;
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-align: center;
-    align-items: center;
-    padding-top: 40px;
-    padding-bottom: 40px;
-
-    .form-reset {
-      width: 100%;
-      max-width: 330px;
-      padding: 15px;
-      margin: auto;
-      .form-control {
-        position: relative;
-        box-sizing: border-box;
-        height: auto;
-        padding: 10px;
-        font-size: 16px;
-        &:focus {
-          z-index: 2;
-        }
-        &[type="email"] {
-          margin-bottom: 10px;
-        }
-      }
-    }
-  }
+  @import '../assets/scss/reset.scss';
 </style>
