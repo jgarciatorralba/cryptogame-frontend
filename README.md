@@ -1,6 +1,6 @@
 # cryptogame-frontend
 
-> Cryptocurrencies game
+> A Vue.js project
 
 ## Build Setup
 
