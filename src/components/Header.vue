@@ -32,7 +32,7 @@
                         <a class="">Wallet</a>
                     </li>
                     <li>
-                        <a class="">Logout</a>
+                        <a class="">Login</a>
                     </li>
                 </ul>
             </div>
