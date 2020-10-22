@@ -2,23 +2,44 @@
   <div class="container cont-login">
     <div class="text-center w-100">
       <form class="form-login" autocomplete="off" method="POST" action="">
+        
         <router-link to="/" class="text-decoration-none text-body">
           <img class="mb-2" src="./assets/img/cryptos.png" alt="" width="100" height="100">
         </router-link>
+
         <h1 class="h3 mb-3 font-weight-normal">
           Please sign in
         </h1>
+
         <label for="loginEmail" class="sr-only">
           Email address
         </label>
-        <input type="email" id="loginEmail" name="loginEmail" class="form-control" placeholder="Email address" required autofocus>
+        <input 
+          type="email" 
+          id="loginEmail" 
+          name="loginEmail" 
+          class="form-control" 
+          placeholder="Email address" 
+          required 
+          autofocus
+        >
+
         <label for="loginPassword" class="sr-only">
           Password
         </label>
-        <input type="password" id="loginPassword" name="loginPassword" class="form-control" placeholder="Password" required>
+        <input 
+          type="password" 
+          id="loginPassword" 
+          name="loginPassword" 
+          class="form-control" 
+          placeholder="Password" 
+          required
+        >
+
         <button class="btn btn-lg btn-primary btn-block" type="submit">
           Sign in
         </button>
+        
         <p class="my-1">
           Forgot your password?
           <router-link to="/reset" class="text-decoration-none text-body">
