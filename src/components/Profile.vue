@@ -1,8 +1,8 @@
 <template>
     <div>
         <app-header></app-header>
-        <div class="container">
-            <div class="row">
+        <div class="container-fluid">
+            <div class="row-8">
                 <sidebar></sidebar>
                 <div class="col-10">
                     <h3 class="text-center">Profile</h3>

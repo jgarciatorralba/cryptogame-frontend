@@ -1,10 +1,10 @@
 <template>
     <div>
         <app-header></app-header>
-        <div class="container">
+        <div class="container-fluid">
             <div class="row">
                 <sidebar></sidebar>
-                <div class="col-10">
+                <div class="col-8">
                     <h3 class="text-center">Wallet</h3>
                 </div>
             </div>
