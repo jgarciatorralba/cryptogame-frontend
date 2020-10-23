@@ -108,10 +108,6 @@ export default {
         //TODO ajax request
       } else {
         this.errors = errors;
-
-        this.errors.forEach((error) => {
-          console.log(error.message);
-        });
       }
     },
   },
