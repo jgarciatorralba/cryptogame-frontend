@@ -19,7 +19,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="coin in coins" v-bind:key="coin">
+                            <tr v-for="coin in coins" v-bind:key="coin.id">
                                 <td>{{coin.market_cap_rank}}</td>
                                 <td>
                                     <img :src=coin.image class="coin-icon">
@@ -35,13 +35,16 @@
                                     <b-icon icon="caret-down-fill"></b-icon>
                                     {{ coin.price_change_percentage_24h.toFixed(1) }}%
                                 </td>
-                                <td v-if="coin.market_cap_change_percentage_24h >= 0" class="text-success">
+                                <td v-if="coin.market_cap_change_percentage_24h == null" class="text-muted">
+                                    N.A.
+                                </td>
+                                <td v-else-if="coin.market_cap_change_percentage_24h >= 0" class="text-success">
                                     <b-icon icon="caret-up-fill"></b-icon>
-                                    {{ coin.market_cap_change_percentage_24h }}%
+                                    {{ coin.market_cap_change_percentage_24h.toFixed(1) }}%
                                 </td>
                                 <td v-else class="text-danger">
                                     <b-icon icon="caret-down-fill"></b-icon>
-                                    {{ coin.market_cap_change_percentage_24h }}%
+                                    {{ coin.market_cap_change_percentage_24h.toFixed(1) }}%
                                 </td>
                                 <td>{{ new Intl.NumberFormat("de-DE").format(coin.market_cap) }} US$</td>
                             </tr>
