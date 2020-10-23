@@ -21,7 +21,7 @@
                         <tbody>
                             <tr>
                                 <td>1</td>
-                                <td>Bitcoin</td>
+                                <td><img class="coin-icon" src="https://s2.coinmarketcap.com/static/img/coins/64x64/1.png">Bitcoin</td>
                                 <td>BTC</td>
                                 <td>$12.911,95</td>
                                 <td>+5.04%</td>
@@ -30,7 +30,7 @@
                             </tr>
                             <tr>
                                 <td>1</td>
-                                <td>Bitcoin</td>
+                                <td><img class="coin-icon" src="https://s2.coinmarketcap.com/static/img/coins/64x64/1.png">Bitcoin</td>
                                 <td>BTC</td>
                                 <td>$12.911,95</td>
                                 <td>+5.04%</td>
@@ -39,7 +39,7 @@
                             </tr>
                             <tr>
                                 <td>1</td>
-                                <td>Bitcoin</td>
+                                <td><img class="coin-icon" src="https://s2.coinmarketcap.com/static/img/coins/64x64/1.png">Bitcoin</td>
                                 <td>BTC</td>
                                 <td>$12.911,95</td>
                                 <td>+5.04%</td>
@@ -48,7 +48,7 @@
                             </tr>
                             <tr>
                                 <td>1</td>
-                                <td>Bitcoin</td>
+                                <td><img class="coin-icon" src="https://s2.coinmarketcap.com/static/img/coins/64x64/1.png">Bitcoin</td>
                                 <td>BTC</td>
                                 <td>$12.911,95</td>
                                 <td>+5.04%</td>
@@ -57,7 +57,7 @@
                             </tr>
                             <tr>
                                 <td>1</td>
-                                <td>Bitcoin</td>
+                                <td><img class="coin-icon" src="https://s2.coinmarketcap.com/static/img/coins/64x64/1.png">Bitcoin</td>
                                 <td>BTC</td>
                                 <td>$12.911,95</td>
                                 <td>+5.04%</td>
@@ -95,6 +95,11 @@
         }
         th, td {
             padding: 12px 15px;
+        }
+        .coin-icon {
+            width: 32px;
+            height: 32px;
+            margin-right: 10px;
         }
     }
 </style>
