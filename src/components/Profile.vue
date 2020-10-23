@@ -17,15 +17,17 @@
                                 <small class="text-muted d-block">Wallet:</small>
                                 <small class="text-muted">Ranking:</small>
                             </div>
-                            <div class="col-2 offset-3 mt-4">
+                            <div class="col-9 offset-3 mt-4">
                                 <label class="d-block">Name</label>
                                 <input type="text">
                             </div>
-                            <div class="col-6 mt-4">
+                            <div class="col-9 offset-3 mt-4">
                                 <label class="d-block">Email</label>
                                 <input type="text">
                             </div>
-                            <button class="btn-lg btn-primary mx-auto mt-5">Save changes</button>
+                            <div class="col-3 offset-3">
+                                <button class="btn-lg btn-primary mt-5">Save changes</button>
+                            </div>
                         </div>
                 </form>
             </div>
@@ -43,6 +45,7 @@ import Sidebar from "../components/partials/Sidebar.vue";
 export default {
     data() {
         return {
+            
         }
     },
 	components: {
