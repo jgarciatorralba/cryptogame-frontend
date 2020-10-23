@@ -13,56 +13,23 @@
                                 <th>Name</th>
                                 <th>Symbol</th>
                                 <th>Price</th>
-                                <th>24h</th>
-                                <th>7d</th>
+                                <th>24h (Price)</th>
+                                <th>24h (Market)</th>
                                 <th>Market Cap</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>Bitcoin</td>
-                                <td>BTC</td>
-                                <td>$12.911,95</td>
-                                <td>+5.04%</td>
-                                <td>+14.2%</td>
-                                <td>$239,167,147,880</td>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>Bitcoin</td>
-                                <td>BTC</td>
-                                <td>$12.911,95</td>
-                                <td>+5.04%</td>
-                                <td>+14.2%</td>
-                                <td>$239,167,147,880</td>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>Bitcoin</td>
-                                <td>BTC</td>
-                                <td>$12.911,95</td>
-                                <td>+5.04%</td>
-                                <td>+14.2%</td>
-                                <td>$239,167,147,880</td>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>Bitcoin</td>
-                                <td>BTC</td>
-                                <td>$12.911,95</td>
-                                <td>+5.04%</td>
-                                <td>+14.2%</td>
-                                <td>$239,167,147,880</td>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>Bitcoin</td>
-                                <td>BTC</td>
-                                <td>$12.911,95</td>
-                                <td>+5.04%</td>
-                                <td>+14.2%</td>
-                                <td>$239,167,147,880</td>
+                            <tr v-for="coin in coins" v-bind:key="coin">
+                                <td>{{coin.market_cap_rank}}</td>
+                                <td>
+                                    <img :src=coin.image class="coin-icon">
+                                    {{ coin.id }}
+                                </td>
+                                <td>{{ coin.symbol }}</td>
+                                <td>${{ coin.current_price }} USD</td>
+                                <td>{{ coin.price_change_percentage_24h.toFixed(1) }}%</td>
+                                <td>{{ coin.market_cap_change_percentage_24h }}%</td>
+                                <td>{{ new Intl.NumberFormat("de-DE").format(coin.market_cap) }} US$</td>
                             </tr>
                         </tbody>
                     </table>
@@ -96,12 +63,18 @@
         th, td {
             padding: 12px 15px;
         }
+        .coin-icon {
+            width: 32px;
+            height: 32px;
+            margin-right: 10px;
+        }
     }
 </style>
 
 <script>
 import AppHeader from "../components/partials/Header.vue";
 import Sidebar from "../components/partials/Sidebar.vue";
+import {coinsList} from "../components/mock/coinlist.js";
 
 export default {
     data() {
@@ -114,7 +87,9 @@ export default {
 		Sidebar, AppHeader
     },
     methods: {
-        requestData() {}
+        requestData() {
+            this.coins = coinsList;
+        }
     },
     mounted() {
         this.requestData();
