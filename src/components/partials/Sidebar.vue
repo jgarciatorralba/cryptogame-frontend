@@ -1,5 +1,5 @@
 <template>
-	<div class="col-2 sidebar">
+	<div class="col-2 offset-1 sidebar">
 		<div>
 			<img class="img-thumbnail mb-3" src="https://www.worldfuturecouncil.org/wp-content/uploads/2020/02/dummy-profile-pic-300x300-1.png"/>
 		</div>
@@ -40,8 +40,8 @@
             list-style-type: none;
         }
 		li {
-			margin: 0 10px;
-            display: inline-block;
+			margin: 0px 10px;
+            display: block;
 		}
 	}
 </style>
