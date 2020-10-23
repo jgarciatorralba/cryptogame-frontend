@@ -11,6 +11,8 @@ import Login from "./components/Login.vue";
 import Register from "./components/Register.vue";
 import Reset from "./components/Reset.vue";
 
+import Test from "./components/Test.vue";
+
 Vue.use(VueRouter);
 Vue.use(BootstrapVue);
 Vue.use(BootstrapVueIcons);
@@ -23,7 +25,8 @@ const routes = [
   { path: "/wallet", component: Wallet },
   { path: "/login", component: Login },
   { path: "/register", component: Register },
-  { path: "/reset", component: Reset }
+  { path: "/reset", component: Reset },
+  { path: "/test", component: Test }
 ];
 
 const router = new VueRouter({ routes: routes, mode: "history" });
