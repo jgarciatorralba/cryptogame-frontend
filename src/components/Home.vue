@@ -27,8 +27,22 @@
                                 </td>
                                 <td>{{ coin.symbol }}</td>
                                 <td>${{ coin.current_price }} USD</td>
-                                <td>{{ coin.price_change_percentage_24h.toFixed(1) }}%</td>
-                                <td>{{ coin.market_cap_change_percentage_24h }}%</td>
+                                <td v-if="coin.price_change_percentage_24h >= 0" class="text-success">
+                                    <b-icon icon="caret-up-fill"></b-icon>
+                                    {{ coin.price_change_percentage_24h.toFixed(1) }}%
+                                </td>
+                                <td v-else class="text-danger">
+                                    <b-icon icon="caret-down-fill"></b-icon>
+                                    {{ coin.price_change_percentage_24h.toFixed(1) }}%
+                                </td>
+                                <td v-if="coin.market_cap_change_percentage_24h >= 0" class="text-success">
+                                    <b-icon icon="caret-up-fill"></b-icon>
+                                    {{ coin.market_cap_change_percentage_24h }}%
+                                </td>
+                                <td v-else class="text-danger">
+                                    <b-icon icon="caret-down-fill"></b-icon>
+                                    {{ coin.market_cap_change_percentage_24h }}%
+                                </td>
                                 <td>{{ new Intl.NumberFormat("de-DE").format(coin.market_cap) }} US$</td>
                             </tr>
                         </tbody>
