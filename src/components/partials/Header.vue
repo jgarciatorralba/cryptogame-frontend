@@ -14,7 +14,7 @@
                         <b-icon icon="house-fill"></b-icon>
                     </li>
                     <li>
-                        <a><router-link :to="'/ranking'">Ranking</router-link></a>
+                        <a><router-link :to="'/ranking'">Leaderboard</router-link></a>
                         <b-icon icon="card-list"></b-icon>
                     </li>
                 </ul>
