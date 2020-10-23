@@ -7,7 +7,7 @@
                     LOGO
                 </a>
             </div>
-            <div class="col-3 my-auto">
+            <div class="col-2 my-auto">
                 <ul class="my-auto">
                     <li>
                         <router-link :to="'/'">Home</router-link>
@@ -19,14 +19,14 @@
                     </li>
                 </ul>
             </div>
-            <div class="col-4 my-auto">
+            <div class="col-2 my-auto">
                 <form>
                     <input type="text">
                     <button class="btn btn-warning" type="submit">Search</button>
                 </form>
             </div>
-            <div class="col-1">
-                <ul class="my-auto d-flex flex-row" v-if="logged">
+            <div class="col-3">
+                <ul class="my-auto" v-if="logged">
                     <li class="my-auto">
                         <a class=""><router-link :to="'/profile'">Profile</router-link></a>
                     </li>
@@ -57,7 +57,7 @@
         color: rgb(255, 255, 255);
         padding: .6em 0;
         .row {
-            justify-content: center;
+            justify-content: space-around;
         }
         svg {
             color: rgb(33, 150, 243);
