@@ -69,6 +69,7 @@
             text-align: left;
         }
         tbody tr {
+            cursor: pointer;
             border-bottom: 1px solid #dddddd;
         }
         tbody tr:nth-of-type(even) {
@@ -76,6 +77,10 @@
         }
         tbody tr:last-of-type {
             border-bottom: 2px solid rgb(33, 150, 243);
+        }
+        tbody tr:hover {
+            user-select: none;
+            background-color: #c2c2c281;
         }
         th, td {
             padding: 12px 15px;
