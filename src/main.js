@@ -11,7 +11,8 @@ import Login from "./components/Login.vue";
 import Register from "./components/Register.vue";
 import Reset from "./components/Reset.vue";
 
-import Test from "./components/Test.vue";
+// TEST
+import Chart from "./components/partials/Chart.vue";
 
 Vue.use(VueRouter);
 Vue.use(BootstrapVue);
@@ -26,7 +27,8 @@ const routes = [
   { path: "/login", component: Login },
   { path: "/register", component: Register },
   { path: "/reset", component: Reset },
-  { path: "/test", component: Test }
+  // TEST
+  { path: "/chart", component: Chart }
 ];
 
 const router = new VueRouter({ routes: routes, mode: "history" });
