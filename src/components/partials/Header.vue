@@ -9,12 +9,12 @@
             </div>
             <div class="col-2 my-auto">
                 <ul class="my-auto">
-                    <li>
+                    <li class="header-link">
                         <router-link :to="'/'">Home</router-link>
                         <b-icon icon="house-fill"></b-icon>
                     </li>
-                    <li>
-                        <a><router-link :to="'/ranking'">Leaderboard</router-link></a>
+                    <li class="header-link">
+                        <router-link :to="'/ranking'">Leaderboard</router-link>
                         <b-icon icon="card-list"></b-icon>
                     </li>
                 </ul>
@@ -27,22 +27,22 @@
             </div>
             <div class="col-3">
                 <ul class="my-auto" v-if="logged">
-                    <li class="my-auto">
-                        <a class=""><router-link :to="'/profile'">Profile</router-link></a>
+                    <li class="header-link">
+                        <router-link :to="'/profile'">Profile</router-link>
                     </li>
-                    <li class="my-auto">
-                        <a><router-link :to="'/transactions'">Transactions</router-link></a>
+                    <li class="header-link">
+                        <router-link :to="'/transactions'">Transactions</router-link>
                     </li>
-                    <li class="my-auto">
-                        <a><router-link :to="'/wallet'">Wallet</router-link></a>
+                    <li class="header-link">
+                        <router-link :to="'/wallet'">Wallet</router-link>
                     </li>
                     <li>
-                        <a class="btn btn-danger"><router-link :to="'/logout'">Logout</router-link></a>
+                        <router-link :to="'/logout'" class="btn btn-danger">Logout</router-link>
                     </li>
                 </ul>
-                <ul class="my-auto" v-else>
-                    <li class="my-auto">
-                        <a class="btn btn-primary"><router-link :to="'/login'">Login</router-link></a>
+                <ul class="my-auto float-right" v-else>
+                    <li>
+                        <router-link :to="'/login'" class="btn btn-primary">Login</router-link>
                     </li>
                 </ul>
             </div>
@@ -55,7 +55,8 @@
         font-family: "Trebuchet MS", roboto, ubuntu, sans-serif;
         background-color: rgb(30, 34, 45);
         color: rgb(255, 255, 255);
-        padding: .6em 0;
+        padding-top: 1em;
+        padding-bottom: 1em;
         .row {
             justify-content: space-around;
         }
@@ -70,7 +71,7 @@
             margin: 0 10px;
             display: inline-block;
         }
-        li:hover {
+        .header-link:hover {
             cursor: pointer;
             transform: translateX(5px) scale(1.02);
             transition: ease-in-out 200ms;
@@ -78,7 +79,7 @@
         a{
             color: inherit;
         }
-        a:hover {
+        .header-link a:hover {
             color: rgb(33, 150, 243);
             text-decoration: none;
         }
