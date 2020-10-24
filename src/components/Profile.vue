@@ -52,6 +52,7 @@
 <style lang="scss" scoped>
     .avatar {
         width: 100px;
+        cursor: pointer;
     }
 </style>
 
