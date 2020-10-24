@@ -16,12 +16,12 @@
                             <p class="h4">Username</p>
                             <div class="row">
                                 <div class="col-4">
-                                <small class="text-muted d-block">Ranking:</small>
-                                <small class="text-muted d-block">Wallet:</small>
+                                    <small class="text-muted d-block">Ranking:</small>
+                                    <small class="text-muted d-block">Wallet:</small>
                                 </div>
                                 <div class="col-6">
-                                <small class="text-muted d-block">Last balance:</small>
-                                <small class="text-muted d-block">Most bought:</small>
+                                    <small class="text-muted d-block">Last balance:</small>
+                                    <small class="text-muted d-block">Most bought:</small>
                                 </div>
                             </div>
                         </div>
