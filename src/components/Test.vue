@@ -1,14 +1,11 @@
 <template>
-  <div class="container">
-    <h1 class="text-center my-3">Test</h1>
-    <div class="border p-3">
-      <div v-if="loading">
-        <p>Loading data...</p>
-      </div>
-      <div v-else class="cont-chart">
-        <div class="chart">
-          <canvas id="myChart" width="100%" height="50vh"></canvas>
-        </div>
+  <div class="container border p-3 my-5">
+    <div v-if="loading">
+      <p>Loading data...</p>
+    </div>
+    <div v-else class="cont-chart">
+      <div class="chart">
+        <canvas id="myChart" width="100%" height="50vh"></canvas>
       </div>
     </div>
   </div>
