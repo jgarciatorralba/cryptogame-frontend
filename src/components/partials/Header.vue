@@ -7,7 +7,7 @@
                     LOGO
                 </a>
             </div>
-            <div class="col-2 my-auto">
+            <div class="col-3 my-auto">
                 <ul class="my-auto">
                     <li class="header-link">
                         <router-link :to="'/'">Home</router-link>
@@ -19,13 +19,13 @@
                     </li>
                 </ul>
             </div>
-            <div class="col-2 my-auto">
+            <div class="col-3 my-auto">
                 <form>
                     <input type="text">
                     <button class="btn btn-warning" type="submit">Search</button>
                 </form>
             </div>
-            <div class="col-3">
+            <div class="col-4">
                 <ul class="my-auto" v-if="logged">
                     <li class="header-link">
                         <router-link :to="'/profile'">Profile</router-link>
