@@ -1,6 +1,6 @@
 <template>
     <div class="container-fluid headernav mb-5">
-        <nav class="row">
+        <nav class="row justify-content-around">
             <div class="col-1 my-auto">
                 <a>
                     <b-icon icon="bar-chart-line"></b-icon>
@@ -26,7 +26,7 @@
                 </form>
             </div>
             <div class="col-4">
-                <ul class="my-auto" v-if="logged">
+                <ul class="my-auto text-right" v-if="logged">
                     <li class="header-link">
                         <router-link :to="'/profile'">Profile</router-link>
                     </li>
