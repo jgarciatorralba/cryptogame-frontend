@@ -1,11 +1,11 @@
 <template>
   <div class="container">
     <h1 class="text-center my-3">Test</h1>
-    <div class="chart-cont border p-3">
+    <div class="border p-3">
       <div v-if="loading">
         <p>Loading data...</p>
       </div>
-      <div v-else>
+      <div v-else class="cont-chart">
         <div class="chart">
           <canvas id="myChart" width="100%" height="50vh"></canvas>
         </div>
@@ -27,71 +27,116 @@ export default {
   },
   methods: {
     getData() {
-      let curatedData = [];
-
       fetch(
-        "https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=eur&days=1"
+        "https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=1"
       )
         .then((response) => response.json())
         .then((data) => {
-          // console.log(data.prices)
-
-          data.prices.forEach((el) => {
-            let record = {};
-            record.date = moment(el[0]).format("LT");
-            record.value = el[1];
-            curatedData.push(record);
-          });
-
-          this.chartData = curatedData;
+          this.chartData = data.prices;
           this.loading = false;
         });
     },
+    createChart() {
+      let labels = [];
+      let data = [];
+      this.chartData.forEach((item) => {
+        labels.push(item[0]);
+        data.push(item[1]);
+      });
+
+      let ctx = document.getElementById("myChart");
+      let myLineChart = new Chart(ctx, {
+        type: "line",
+        data: {
+          labels: labels,
+          datasets: [
+            {
+              data: data,
+              backgroundColor: ["rgba(255, 159, 64, 0.2)"],
+              borderColor: ["rgba(255, 159, 64, 1)"],
+              borderWidth: 1,
+            },
+          ],
+        },
+        options: {
+          legend: {
+            display: false,
+          },
+          scales: {
+            xAxes: [
+              {
+                type: "time",
+                time: {
+                  // tooltipFormat: "h:mm:ss a",
+                  unit: "hour",
+                },
+                ticks: {
+                  source: "auto",
+                  autoSkip: true,
+                  maxTicksLimit: 10,
+                  maxRotation: 0,
+                  minRotation: 0,
+                },
+              },
+            ],
+            yAxes: [
+              {
+                ticks: {
+                  beginAtZero: false,
+                  // Include a dollar sign in the ticks
+                  callback: function (value, index, values) {
+                    let nf = new Intl.NumberFormat("en-US");
+                    let formated = "$" + nf.format(value);
+                    return formated;
+                  },
+                },
+              },
+            ],
+          },
+          tooltips: {
+            callbacks: {
+              label: function (tooltipItem, data) {
+                var label =
+                  data.datasets[tooltipItem.datasetIndex].label || "Price";
+
+                if (label) {
+                  label += ": ";
+                }
+
+                let nf = new Intl.NumberFormat("en-US");
+                let formated = "$" + nf.format(tooltipItem.yLabel.toFixed(2));
+                label += formated;
+                return label;
+              },
+            },
+          },
+        },
+      });
+    },
+    destroyChart() {
+      $(".chart").remove();
+      let chart = $("<div>");
+      chart.addClass("chart");
+      let canvas = $("<canvas>");
+      canvas.attr("id", "myChart");
+      canvas.height("50vh").width("100%");
+      canvas.appendTo(chart);
+      $(".cont-chart").append(chart);
+    },
     refreshChart() {
-      console.log("Hola!");
+      this.getData();
+      this.destroyChart();
+      this.createChart();
     },
   },
   mounted() {
-    //TODO ajax request first page load
     this.getData();
 
     // Set Interval to refresh data every 5 min
     setInterval(this.refreshChart, 5 * 60 * 1000);
   },
   updated() {
-    let labels = [];
-    let data = [];
-    this.chartData.forEach((value) => {
-      labels.push(value.date);
-      data.push(value.value);
-    });
-    console.log(labels);
-    console.log(data);
-
-    let ctx = document.getElementById("myChart");
-    let myLineChart = new Chart(ctx, {
-      type: "line",
-      data: {
-        labels: labels,
-        datasets: [
-          {
-            label: "bitcoin",
-            data: data,
-          },
-        ],
-      },
-      options: {
-        scales: {
-          yAxes: [
-            {
-              ticks: {
-                beginAtZero: false,
-              },
-            },
-          ],
-        },
-      },
-    });
+    this.createChart();
   },
 };
 </script>
