@@ -93,7 +93,7 @@ export default {
           tooltips: {
             callbacks: {
               label: function (tooltipItem, data) {
-                var label =
+                let label =
                   data.datasets[tooltipItem.datasetIndex].label || "Price";
 
                 if (label) {
