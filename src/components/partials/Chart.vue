@@ -1,11 +1,11 @@
 <template>
-  <div class="container border p-3 my-5 bg-white">
+  <div class="container border p-3 my-3 bg-white">
     <div v-if="loading" class="text-center">
       <p class="my-2">Loading content...</p>
     </div>
     <div v-else class="cont-chart">
       <div class="chart">
-        <canvas id="myChart" width="100%" height="50vh"></canvas>
+        <canvas id="myChart"></canvas>
       </div>
     </div>
   </div>
