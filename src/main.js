@@ -10,6 +10,7 @@ import Wallet from "./components/Wallet.vue";
 import Login from "./components/Login.vue";
 import Register from "./components/Register.vue";
 import Reset from "./components/Reset.vue";
+import Details from "./components/Details.vue";
 import NotFound from "./components/NotFound.vue";
 
 // TEST
@@ -28,8 +29,7 @@ const routes = [
   { path: "/login", component: Login },
   { path: "/register", component: Register },
   { path: "/reset", component: Reset },
-  // TEST
-  { path: "/chart", component: Chart },
+  { path: "/details/:coinId", component: Details, props: true },
   // 404 Page
   { path: "*", component: NotFound }
 ];
