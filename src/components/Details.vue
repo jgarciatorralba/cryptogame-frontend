@@ -26,7 +26,15 @@
                       coin.market_data.current_price.usd.toLocaleString("en-US")
                     }}
                   </span>
-                  <span>
+                  <span
+                    v-if="coin.market_data.price_change_percentage_24h > 0"
+                    class="gain"
+                  >
+                    +{{
+                      coin.market_data.price_change_percentage_24h.toFixed(2)
+                    }}%
+                  </span>
+                  <span v-else class="loss">
                     {{
                       coin.market_data.price_change_percentage_24h.toFixed(2)
                     }}%
