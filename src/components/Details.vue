@@ -3,8 +3,8 @@
     <app-header></app-header>
     <div class="container">
       <div class="row">
-        <div class="col-sm-1"></div>
-        <div class="col-sm-10">
+        <div class="col-lg-2"></div>
+        <div class="col-lg-8">
           <div v-if="loading">
             <p class="my-2">Loading coin information...</p>
           </div>
@@ -18,10 +18,14 @@
                   <img :src="coin.image.large" alt="Coin logo" />
                   {{ coin.id }}
                   <span>
-                    $
-                    {{
+                    ${{
                       coin.market_data.current_price.usd.toLocaleString("en-US")
                     }}
+                  </span>
+                  <span>
+                    {{
+                      coin.market_data.price_change_percentage_24h.toFixed(2)
+                    }}%
                   </span>
                 </h2>
               </div>
@@ -37,7 +41,7 @@
             </div>
           </div>
         </div>
-        <div class="col-sm-1"></div>
+        <div class="col-lg-2"></div>
       </div>
     </div>
   </div>
