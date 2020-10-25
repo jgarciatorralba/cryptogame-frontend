@@ -10,7 +10,11 @@
           </div>
           <div v-else>
             <div v-if="coin == null">
-              <p class="my-2">{{ error }}</p>
+              <!-- TODO: Import partial "Errors" when re-worked -->
+              <div class="alert alert-danger fade hide show">
+                <strong>Error! </strong>{{ error }}
+              </div>
+              <!-- -->
             </div>
             <div v-else>
               <div class="coin-details">
