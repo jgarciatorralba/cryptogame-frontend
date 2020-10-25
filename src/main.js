@@ -10,6 +10,11 @@ import Wallet from "./components/Wallet.vue";
 import Login from "./components/Login.vue";
 import Register from "./components/Register.vue";
 import Reset from "./components/Reset.vue";
+import Details from "./components/Details.vue";
+import NotFound from "./components/NotFound.vue";
+
+// TEST
+import Chart from "./components/partials/Chart.vue";
 
 Vue.use(VueRouter);
 Vue.use(BootstrapVue);
@@ -23,7 +28,10 @@ const routes = [
   { path: "/wallet", component: Wallet },
   { path: "/login", component: Login },
   { path: "/register", component: Register },
-  { path: "/reset", component: Reset }
+  { path: "/reset", component: Reset },
+  { path: "/details/:coinId", component: Details, props: true },
+  // 404 Page
+  { path: "*", component: NotFound }
 ];
 
 const router = new VueRouter({ routes: routes, mode: "history" });
