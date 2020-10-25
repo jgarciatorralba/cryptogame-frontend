@@ -10,6 +10,7 @@ import Wallet from "./components/Wallet.vue";
 import Login from "./components/Login.vue";
 import Register from "./components/Register.vue";
 import Reset from "./components/Reset.vue";
+import NotFound from "./components/NotFound.vue";
 
 // TEST
 import Chart from "./components/partials/Chart.vue";
@@ -28,7 +29,9 @@ const routes = [
   { path: "/register", component: Register },
   { path: "/reset", component: Reset },
   // TEST
-  { path: "/chart", component: Chart }
+  { path: "/chart", component: Chart },
+  // 404 Page
+  { path: "*", component: NotFound }
 ];
 
 const router = new VueRouter({ routes: routes, mode: "history" });

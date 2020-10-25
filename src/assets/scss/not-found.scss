@@ -1,0 +1,13 @@
+/* 404 NOT FOUND PAGE */
+.cont-notFound {
+  height: 100vh;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: center;
+  align-items: center;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  img {
+    max-height: 100vh;
+  }
+}
