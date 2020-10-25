@@ -2,9 +2,9 @@
     <div>
         <app-header></app-header>
         <div class="container-fluid">
-            <div class="row">
+            <div class="row justify-content-center">
                 <sidebar></sidebar>
-                <div class="col-8 text-center">
+                <div class="col-9 text-center">
                         <h3 class="mb-4">Transactions</h3>
                     <div class="col-8 mx-auto">
                         <div class="bg-danger rounded-lg text-light px-5 py-2 mb-1"><span class="font-weight-bold">Someone</span> bought $321,00 in <span class="font-weight-bold">Bitcoins</span> - 44 mins ago</div>

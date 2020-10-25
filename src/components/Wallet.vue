@@ -2,9 +2,9 @@
     <div>
         <app-header></app-header>
         <div class="container-fluid">
-            <div class="row">
+            <div class="row justify-content-center">
                 <sidebar></sidebar>
-                <div class="col-8">
+                <div class="col-9">
                     <h3 class="text-center">Wallet <b-icon icon="wallet2"></b-icon></h3>
                     <table class="coins-table mx-auto">
                         <thead>
