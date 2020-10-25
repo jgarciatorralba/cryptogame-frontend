@@ -1,0 +1,26 @@
+/* DETAILS VIEW */
+.cont-details {
+  h2 {
+    text-transform: capitalize;
+  }
+  .coin-details {
+    h2 {
+      position: relative;
+      img {
+        position: relative;
+        bottom: 4px;
+        height: 50px;
+      }
+      span {
+        position: absolute;
+        right: 0;
+        top: 2px;
+      }
+    }
+  }
+  .description {
+    height: 25vh;
+    overflow: auto;
+    text-align: justify;
+  }
+}
