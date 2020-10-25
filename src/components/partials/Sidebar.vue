@@ -5,25 +5,37 @@
 		</div>
 		<div>
 			<ul>
-				<li>
+				<li class="badge badge-secondary p-2">
 					<b-icon icon="person-fill"></b-icon>
 					Username
 				</li>
-				<li>
-					<b-icon icon="wallet2"></b-icon>
-					Wallet:
+				<li class="border rounded mb-2">
+					<div class="rounded-top badge-primary p-1 mb-1">
+						<b-icon icon="wallet2" class="ml-2"></b-icon>
+						<small class="badge">Wallet</small>
+					</div>
+					<div class="d-block ml-3">$10.000</div>
 				</li>
-				<li>
-					<b-icon icon="percent"></b-icon>
-					Last balance:
+				<li class="border rounded mb-2">
+					<div class="rounded-top badge-primary p-1 mb-1">
+						<b-icon icon="percent" class="ml-2"></b-icon>
+						<small class="badge">Last balance</small>
+					</div>
+					<div class="d-block ml-3">+20%</div>
 				</li>
-				<li>
-					<b-icon icon="bookmark-star"></b-icon>
-					Most bought:
+				<li class="border rounded mb-2">
+					<div class="rounded-top badge-primary p-1 mb-1">
+						<b-icon icon="bookmark-star" class="ml-2"></b-icon>
+						<small class="badge">Most bought</small>
+					</div>
+					<div class="d-block ml-3">Bitcoin</div>
 				</li>
-				<li>
-					<b-icon icon="trophy"></b-icon>
-					Ranking:
+				<li class="border rounded mb-2">
+					<div class="rounded-top badge-primary p-1 mb-1">
+						<b-icon icon="trophy" class="ml-2"></b-icon>
+						<small class="badge">Ranking</small>
+					</div>
+					<div class="d-block ml-3">#10</div>
 				</li>
 			</ul>
 		</div>
