@@ -2,9 +2,9 @@
     <div>
         <app-header></app-header>
         <div class="container-fluid">
-            <div class="row">
+            <div class="row justify-content-center">
                 <sidebar></sidebar>
-                <div class="col-8">
+                <div class="col-9">
                     <h3 class="text-center">All Cryptocurrencies</h3>
                     <table class="coins-table mx-auto">
                         <thead>
@@ -62,7 +62,6 @@
         margin: 25px 0;
         font-size: 0.9em;
         font-family: sans-serif;
-        width: 90%;
         thead tr {
             background-color: rgb(33, 150, 243);
             color: #ffffff;

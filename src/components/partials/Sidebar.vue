@@ -1,5 +1,5 @@
 <template>
-	<div class="col-2 offset-1 sidebar">
+	<div class="col-2 sidebar">
 		<div>
 			<img class="img-thumbnail mb-3" src="https://www.worldfuturecouncil.org/wp-content/uploads/2020/02/dummy-profile-pic-300x300-1.png"/>
 		</div>
@@ -34,7 +34,7 @@
 	.sidebar{
 		border-radius: 6px;
 		box-shadow: 0 0 0 1px #e0e3eb;
-		padding: 20px 10px;
+		padding: 20px 20px;
 		ul {
 			padding: 0;
             list-style-type: none;
