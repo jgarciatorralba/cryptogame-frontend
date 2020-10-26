@@ -49,7 +49,7 @@
     .transaction:hover {
         transform: scale(1.2);
         box-shadow: 1px 2px gray;
-        transition: ease-in-out 100ms;
+        transition: ease-in-out 350ms;
     }
 </style>
 
