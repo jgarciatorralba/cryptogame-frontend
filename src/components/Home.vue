@@ -20,7 +20,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="coin in coins" v-bind:key="coin.id">
+                            <router-link v-for="coin in coins" v-bind:key="coin.id" tag="tr" :to="'details/'+coin.name.toLowerCase()">
                                 <td>{{coin.market_cap_rank}}</td>
                                 <td>
                                     <img :src=coin.image class="coin-icon">
@@ -39,7 +39,7 @@
                                 <td>{{ new Intl.NumberFormat("de-DE").format(coin.high) }} US$</td>
                                 <td>{{ new Intl.NumberFormat("de-DE").format(coin.low) }} US$</td>
                                 <td>{{ new Intl.NumberFormat("de-DE").format(coin.volume) }} US$</td>
-                            </tr>
+                            </router-link>
                         </tbody>
                     </table>
                 </div>
