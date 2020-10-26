@@ -7,70 +7,20 @@
                 <div class="col-9">
                     <h3 class="text-center">Leaderboard</h3>
                     <div class="row">
-
-                        <div class="col-8 mx-auto row py-3 border-bottom">
-                            <img class="rounded-circle col-2" src="https://www.worldfuturecouncil.org/wp-content/uploads/2020/02/dummy-profile-pic-300x300-1.png">
+                        <div v-for="(player,key) in ranking.data" v-bind:key="player.name" class="col-8 mx-auto row py-3 border-bottom">
+                            <img class="rounded-circle col-2" src="player.avatar">
                             <div class="col-7">
-                                <p class="h6">Username</p>
-                                <small class="d-block">Wallet: $25.750</small>
+                                <p class="h6">{{ player.name }}</p>
+                                <small class="d-block">Balance: ${{ new Intl.NumberFormat("de-DE").format(player.balance) }} USD</small>
                                 <small class="">Most bought: Bitcoin</small>
                             </div>
                             <p class="col-3 h6 my-auto text-right">
-                                <b-icon icon="trophy-fill" class="mr-1" variant="warning"></b-icon>
-                                Rank 1
+                                <b-icon v-if="key == 0" icon="trophy-fill" class="mr-1" variant="warning"></b-icon>
+                                <b-icon v-if="key == 1" icon="trophy-fill" class="mr-1" variant="secondary"></b-icon>
+                                <b-icon v-if="key == 2" icon="trophy-fill" class="mr-1" variant="danger"></b-icon>
+                                Rank {{ key+1 }}
                             </p>
                         </div>
-
-                        <div class="col-8 mx-auto row py-3 border-bottom">
-                            <img class="rounded-circle col-2" src="https://www.worldfuturecouncil.org/wp-content/uploads/2020/02/dummy-profile-pic-300x300-1.png">
-                            <div class="col-7">
-                                <p class="h6">Username</p>
-                                <small class="d-block">Wallet: $25.750</small>
-                                <small class="">Most bought: Bitcoin</small>
-                            </div>
-                            <p class="col-3 h6 my-auto text-right">
-                                <b-icon icon="trophy-fill" class="mr-1" variant="secondary"></b-icon>
-                                Rank 2
-                            </p>
-                        </div>
-
-                        <div class="col-8 mx-auto row py-3 border-bottom">
-                            <img class="rounded-circle col-2" src="https://www.worldfuturecouncil.org/wp-content/uploads/2020/02/dummy-profile-pic-300x300-1.png">
-                            <div class="col-7">
-                                <p class="h6">Username</p>
-                                <small class="d-block">Wallet: $25.750</small>
-                                <small class="">Most bought: Bitcoin</small>
-                            </div>
-                            <p class="col-3 h6 my-auto text-right">
-                                <b-icon icon="trophy-fill" class="mr-1" variant="danger"></b-icon>
-                                Rank 3
-                            </p>
-                        </div>
-
-                        <div class="col-8 mx-auto row py-3 border-bottom">
-                            <img class="rounded-circle col-2" src="https://www.worldfuturecouncil.org/wp-content/uploads/2020/02/dummy-profile-pic-300x300-1.png">
-                            <div class="col-7">
-                                <p class="h6">Username</p>
-                                <small class="d-block">Wallet: $25.750</small>
-                                <small class="">Most bought: Bitcoin</small>
-                            </div>
-                            <p class="col-3 h6 my-auto text-right">
-                                Rank 4
-                            </p>
-                        </div>
-
-                        <div class="col-8 mx-auto row py-3 border-bottom">
-                            <img class="rounded-circle col-2" src="https://www.worldfuturecouncil.org/wp-content/uploads/2020/02/dummy-profile-pic-300x300-1.png">
-                            <div class="col-7">
-                                <p class="h6">Username</p>
-                                <small class="d-block">Wallet: $25.750</small>
-                                <small class="">Most bought: Bitcoin</small>
-                            </div>
-                            <p class="col-3 h6 my-auto text-right">
-                                Rank 5
-                            </p>
-                        </div>
-
                     </div>
                 </div>
             </div>
@@ -84,11 +34,12 @@
 <script>
 import AppHeader from "../components/partials/Header.vue";
 import Sidebar from "../components/partials/Sidebar.vue";
+import {ranking} from "../components/mock/coinlist.js";
 
 export default {
     data() {
         return {
-            coins: null,
+            ranking: ranking,
             logged: true
         }
     },
