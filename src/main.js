@@ -19,6 +19,7 @@ Vue.prototype.$http = Axios;
 Vue.use(VueRouter);
 Vue.use(BootstrapVue);
 Vue.use(BootstrapVueIcons);
+Vue.use(require('vue-moment'));
 
 const routes = [
   { path: "/", component: Home },
