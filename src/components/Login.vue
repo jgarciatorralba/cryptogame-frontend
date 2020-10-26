@@ -105,7 +105,42 @@ export default {
       let errors = this.validateForm(e);
       if (errors == null) {
         console.log("Form OK! Send data to server");
-        //TODO ajax request
+        //Ajax request
+        this.$http({
+          method: "post",
+          url: "http://localhost:3000/login",
+          data: {
+            email: this.email,
+            password: this.password,
+          },
+          validateStatus: function (status) {
+            return status >= 200 && status < 500;
+          },
+        })
+          .then(function (response) {
+            console.log(response);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+
+        // fetch("http://localhost:3000/login", {
+        //   method: "POST",
+        //   body: JSON.stringify({
+        //     email: this.email,
+        //     password: this.password,
+        //   }),
+        //   headers: {
+        //     "Content-Type": "application/json",
+        //   },
+        // })
+        //   .then((response) => response.json())
+        //   .then((data) => {
+        //     console.log(data);
+        //   })
+        //   .catch((e) => {
+        //     console.log(e);
+        //   });
       } else {
         this.errors = errors;
       }
