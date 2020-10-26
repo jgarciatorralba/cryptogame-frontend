@@ -1,50 +1,63 @@
 <template>
-    <div>
-        <app-header></app-header>
-        <div class="container-fluid">
-            <div class="row justify-content-center">
-                <sidebar v-if="user !== null"></sidebar>
-                <div class="col-9">
-                    <h3 class="text-center">All Cryptocurrencies</h3>
-                    <p v-if="loading" class="text-center mt-5">Loading cryptocoins data...</p>
-                    <table v-else class="coins-table mx-auto">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Name</th>
-                                <th>Symbol</th>
-                                <th>Price</th>
-                                <th>Change (24h)</th>
-                                <th>High (24h)</th>
-                                <th>Low (24h)</th>
-                                <th>Volume</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <router-link v-for="(coin,index) in coins.data" v-bind:key="coin.id" tag="tr" :to="'details/'+coin.name.toLowerCase()">
-                                <td>{{index+1}}</td>
-                                <td>
-                                    <img :src=coin.image class="coin-icon">
-                                    {{ coin.name }}
-                                </td>
-                                <td>{{ coin.symbol }}</td>
-                                <td>${{ new Intl.NumberFormat("de-DE").format(coin.price) }} USD</td>
-                                <td v-if="coin.change >= 0" class="text-success">
-                                    <b-icon icon="caret-up-fill"></b-icon>
-                                    {{ coin.change.toFixed(1) }}%
-                                </td>
-                                <td v-else class="text-danger">
-                                    <b-icon icon="caret-down-fill"></b-icon>
-                                    {{ coin.change.toFixed(1) }}%
-                                </td>
-                                <td>{{ new Intl.NumberFormat("de-DE").format(coin.high) }} US$</td>
-                                <td>{{ new Intl.NumberFormat("de-DE").format(coin.low) }} US$</td>
-                                <td>{{ new Intl.NumberFormat("de-DE").format(coin.volume) }} US$</td>
-                            </router-link>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+  <div>
+    <app-header></app-header>
+    <div class="container-fluid">
+      <div class="row justify-content-center">
+        <sidebar v-if="user !== null"></sidebar>
+        <div class="col-9">
+          <h3 class="text-center">All Cryptocurrencies</h3>
+          <p v-if="loading" class="text-center mt-5">
+            Loading cryptocoins data...
+          </p>
+          <table v-else class="coins-table mx-auto">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Symbol</th>
+                <th>Price</th>
+                <th>Change (24h)</th>
+                <th>High (24h)</th>
+                <th>Low (24h)</th>
+                <th>Volume</th>
+              </tr>
+            </thead>
+            <tbody>
+              <router-link
+                v-for="(coin, index) in coins.data"
+                v-bind:key="coin.id"
+                tag="tr"
+                :to="'details/' + coin.name.toLowerCase()"
+              >
+                <td>{{ index + 1 }}</td>
+                <td>
+                  <img :src="coin.image" class="coin-icon" />
+                  {{ coin.name }}
+                </td>
+                <td>{{ coin.symbol }}</td>
+                <td>
+                  ${{ new Intl.NumberFormat("de-DE").format(coin.price) }} USD
+                </td>
+                <td v-if="coin.change >= 0" class="text-success">
+                  <b-icon icon="caret-up-fill"></b-icon>
+                  {{ coin.change.toFixed(1) }}%
+                </td>
+                <td v-else class="text-danger">
+                  <b-icon icon="caret-down-fill"></b-icon>
+                  {{ coin.change.toFixed(1) }}%
+                </td>
+                <td>
+                  {{ new Intl.NumberFormat("de-DE").format(coin.high) }} US$
+                </td>
+                <td>
+                  {{ new Intl.NumberFormat("de-DE").format(coin.low) }} US$
+                </td>
+                <td>
+                  {{ new Intl.NumberFormat("de-DE").format(coin.volume) }} US$
+                </td>
+              </router-link>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
