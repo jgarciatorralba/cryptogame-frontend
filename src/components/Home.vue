@@ -21,8 +21,8 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <router-link v-for="coin in coins.data" v-bind:key="coin.id" tag="tr" :to="'details/'+coin.name.toLowerCase()">
-                                <td>{{coin.market_cap_rank}}</td>
+                            <router-link v-for="(coin,index) in coins.data" v-bind:key="coin.id" tag="tr" :to="'details/'+coin.name.toLowerCase()">
+                                <td>{{index+1}}</td>
                                 <td>
                                     <img :src=coin.image class="coin-icon">
                                     {{ coin.name }}
