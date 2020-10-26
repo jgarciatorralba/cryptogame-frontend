@@ -2944,3 +2944,107 @@ export var coinsList = [
       "last_updated": "2020-10-23T15:30:53.928Z"
     }
   ]
+
+  export var ranking = {
+    "data": [
+      {
+        "name": "Jorge",
+        "avatar": null,
+        "balance": 10000
+      },
+      {
+        "name": "Yulia",
+        "avatar": null,
+        "balance": 5000
+      },
+      {
+        "name": "admin",
+        "avatar": null,
+        "balance": 0
+      },
+      {
+        "name": "Chris",
+        "avatar": null,
+        "balance": 0
+      }
+    ],
+    "error": null
+  }
+
+  export var transactions = [
+    {
+      "id": 1,
+      "user": "admin",
+      "symbol": "BTC",
+      "coin": "Bitcoin",
+      "type": "buy",
+      "quantity": 0.123,
+      "value": 13114.3,
+      "date": "2020-10-26T14:17:43.000Z"
+    },
+    {
+      "id": 2,
+      "user": "admin",
+      "symbol": "LTC",
+      "coin": "Litecoin",
+      "type": "buy",
+      "quantity": 5.436,
+      "value": 2.6538,
+      "date": "2020-10-26T14:17:43.000Z"
+    },
+    {
+      "id": 3,
+      "user": "admin",
+      "symbol": "ETH",
+      "coin": "Ethereum",
+      "type": "sell",
+      "quantity": 10.91,
+      "value": 412.1,
+      "date": "2020-10-26T14:17:43.000Z"
+    },
+    {
+      "id": 4,
+      "user": "admin",
+      "symbol": "DOGE",
+      "coin": "Dogecoin",
+      "type": "buy",
+      "quantity": 420,
+      "value": 0.0026366,
+      "date": "2020-10-26T14:17:43.000Z"
+    }
+  ]
+
+  export var wallet = {
+    "data": {
+      "coins": [
+        {
+          "symbol": "BTC",
+          "quantity": 0.123,
+          "price": 13185.2,
+          "value": 1621.7796
+        },
+        {
+          "symbol": "LTC",
+          "quantity": 5.436,
+          "price": 57.45,
+          "value": 312.2982
+        },
+        {
+          "symbol": "ETH",
+          "quantity": 10.91,
+          "price": 403.68,
+          "value": 4404.1488
+        },
+        {
+          "symbol": "DOGE",
+          "quantity": 420,
+          "price": 0.0027756,
+          "value": 1.1657520000000001
+        }
+      ],
+      "value": 6339.392352,
+      "balance": 10000,
+      "total": 16339.392351999999
+    },
+    "error": null
+  }
