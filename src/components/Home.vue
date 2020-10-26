@@ -110,6 +110,9 @@ export default {
     methods: {
         requestData() {
             this.coins = coinsList;
+            /* fetch()
+                .then(response => response.json())
+                .then(data => this.coins = data); */
         }
     },
     mounted() {
