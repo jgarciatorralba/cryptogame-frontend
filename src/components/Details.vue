@@ -10,11 +10,7 @@
           </div>
           <div v-else>
             <div v-if="coin == null">
-              <!-- TODO: Import partial "Errors" when re-worked -->
-              <div class="alert alert-danger fade hide show">
-                <strong>Error! </strong>{{ error }}
-              </div>
-              <!-- -->
+              <errors v-bind:error="error" v-bind:success="success"></errors>
             </div>
             <div v-else>
               <div class="coin-details">
@@ -62,6 +58,7 @@
 <script>
 import AppHeader from "./partials/Header.vue";
 import Chart from "./partials/Chart";
+import Errors from "./partials/Errors.vue";
 
 export default {
   props: ["coinId"],
@@ -69,6 +66,7 @@ export default {
     return {
       coin: null,
       error: null,
+      success: null,
       details: {
         id: this.coinId,
         currency: "usd",
@@ -80,6 +78,7 @@ export default {
   components: {
     Chart,
     AppHeader,
+    Errors,
   },
   methods: {
     getCoinData() {

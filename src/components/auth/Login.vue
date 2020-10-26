@@ -5,7 +5,7 @@
         <router-link to="/" class="text-decoration-none text-body">
           <img
             class="mb-2"
-            src="../assets/img/cryptos.png"
+            src="../../assets/img/cryptos.png"
             alt=""
             width="100"
             height="100"
@@ -37,7 +37,7 @@
           required
         />
 
-        <errors v-bind:errors="errors"></errors>
+        <errors v-bind:error="error" v-bind:success="success"></errors>
 
         <button
           @click="sendForm"
@@ -66,14 +66,15 @@
 </template>
 
 <script>
-import Errors from "../components/partials/Errors.vue";
+import Errors from "../partials/Errors.vue";
 
 export default {
   data() {
     return {
       email: "",
       password: "",
-      errors: [],
+      error: null,
+      success: null,
     };
   },
   components: {
@@ -83,28 +84,25 @@ export default {
     validateForm(e) {
       e.preventDefault();
 
-      let errors = [];
-
-      let email = this.email;
-      const regExEmail = /\S+@\S+/;
-      if (!regExEmail.test(email)) {
-        let error = new Error("Invalid email");
-        errors.push(error);
-      }
+      let error = "";
 
       let password = this.password;
       const regExPassword = /^.{6,}$/;
       if (!regExPassword.test(password)) {
-        let error = new Error("Invalid password");
-        errors.push(error);
+        error = "Password length must be 6 characters or more";
       }
 
-      return errors.length > 0 ? errors : null;
+      let email = this.email;
+      const regExEmail = /\S+@\S+/;
+      if (!regExEmail.test(email)) {
+        error = "Invalid email format";
+      }
+
+      return error !== "" ? error : null;
     },
     sendForm(e) {
-      let errors = this.validateForm(e);
-      if (errors == null) {
-        console.log("Form OK! Send data to server");
+      let error = this.validateForm(e);
+      if (error == null) {
         //Ajax request
         this.$http({
           method: "post",
@@ -114,41 +112,54 @@ export default {
             password: this.password,
           },
           validateStatus: function (status) {
-            return status >= 200 && status < 500;
+            return status >= 200 && status <= 500;
           },
         })
-          .then(function (response) {
-            console.log(response);
+          .then((response) => {
+            if (response.data.error !== null) {
+              this.error = response.data.error;
+            } else {
+              // Save received token in local storage
+              const token = response.data.data.accessToken;
+              localStorage.setItem("access_token", token);
+              // Save user data in local storage
+              const user = response.data.data.user;
+              localStorage.setItem("user", JSON.stringify(user));
+              // Check if user is admin
+              let is_admin = response.data.data.user.role;
+              // Re-direct depending on type of user
+              if (localStorage.getItem("access_token") != null) {
+                this.$emit("loggedIn");
+                if (this.$route.params.nextUrl != null) {
+                  this.$router.push(this.$route.params.nextUrl);
+                } else {
+                  if (is_admin == 1) {
+                    // this.$router.push({name: 'Admin'})
+                  } else {
+                    this.$router.push({ name: "Home" });
+                  }
+                }
+              }
+            }
           })
-          .catch(function (error) {
-            console.log(error);
+          .catch((err) => {
+            this.error = err.message;
           });
-
-        // fetch("http://localhost:3000/login", {
-        //   method: "POST",
-        //   body: JSON.stringify({
-        //     email: this.email,
-        //     password: this.password,
-        //   }),
-        //   headers: {
-        //     "Content-Type": "application/json",
-        //   },
-        // })
-        //   .then((response) => response.json())
-        //   .then((data) => {
-        //     console.log(data);
-        //   })
-        //   .catch((e) => {
-        //     console.log(e);
-        //   });
       } else {
-        this.errors = errors;
+        this.error = error;
       }
     },
+  },
+  mounted() {
+    if (this.$route.params.success == undefined) {
+      this.success = null;
+    } else {
+      this.success = this.$route.params.success;
+    }
   },
 };
 </script>
 
 <style lang="scss" scoped>
-@import "../assets/scss/login.scss";
+@import "../../assets/scss/login.scss";
 </style>

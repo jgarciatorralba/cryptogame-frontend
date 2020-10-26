@@ -5,7 +5,7 @@
         <router-link to="/" class="text-decoration-none text-body">
           <img
             class="mb-2"
-            src="../assets/img/cryptos.png"
+            src="../../assets/img/cryptos.png"
             alt=""
             width="100"
             height="100"
@@ -49,7 +49,7 @@
           required
         />
 
-        <errors v-bind:errors="errors"></errors>
+        <errors v-bind:error="error" v-bind:success="success"></errors>
 
         <button
           @click="sendForm"
@@ -72,7 +72,7 @@
 </template>
 
 <script>
-import Errors from "../components/partials/Errors.vue";
+import Errors from "../partials/Errors.vue";
 
 export default {
   data() {
@@ -80,7 +80,8 @@ export default {
       name: "",
       email: "",
       password: "",
-      errors: [],
+      error: null,
+      success: null,
     };
   },
   components: {
@@ -90,37 +91,60 @@ export default {
     validateForm(e) {
       e.preventDefault();
 
-      let errors = [];
+      let error = "";
 
-      let name = this.name;
-      if (name.length == 0) {
-        let error = new Error("Full name is empty");
-        errors.push(error);
+      let password = this.password;
+      const regExPassword = /^.{6,}$/;
+      if (!regExPassword.test(password)) {
+        error = "Password length must be 6 characters or more";
       }
 
       let email = this.email;
       const regExEmail = /\S+@\S+/;
       if (!regExEmail.test(email)) {
-        let error = new Error("Invalid email");
-        errors.push(error);
+        error = "Invalid email format";
       }
 
-      let password = this.password;
-      const regExPassword = /^.{6,}$/;
-      if (!regExPassword.test(password)) {
-        let error = new Error("Invalid password");
-        errors.push(error);
+      let name = this.name;
+      if (name.length == 0) {
+        error = "Full name is empty";
       }
 
-      return errors.length > 0 ? errors : null;
+      return error !== "" ? error : null;
     },
     sendForm(e) {
-      let errors = this.validateForm(e);
-      if (errors == null) {
-        console.log("Form OK! Send data to server");
-        //TODO ajax request
+      let error = this.validateForm(e);
+      if (error == null) {
+        // Ajax request
+        this.$http({
+          method: "post",
+          url: "http://localhost:3000/register",
+          data: {
+            name: this.name,
+            email: this.email,
+            password: this.password,
+          },
+          validateStatus: function (status) {
+            return status >= 200 && status <= 500;
+          },
+        })
+          .then((response) => {
+            if (response.data.error !== null) {
+              this.error = response.data.error;
+            } else {
+              this.$router.push({
+                name: "Login",
+                params: {
+                  success: response.data.data,
+                },
+              });
+            }
+          })
+          .catch((err) => {
+            this.error = err.message;
+          });
       } else {
-        this.errors = errors;
+        this.error = error;
       }
     },
   },
@@ -128,5 +152,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "../assets/scss/register.scss";
+@import "../../assets/scss/register.scss";
 </style>
