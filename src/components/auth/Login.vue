@@ -120,7 +120,9 @@ export default {
             if (response.data.error !== null) {
               this.error = response.data.error;
             } else {
-              //TODO JWT
+              // Save received token in local storage
+              const token = response.data.data.accessToken;
+              localStorage.setItem("access_token", token);
             }
           })
           .catch((err) => {
