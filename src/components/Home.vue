@@ -6,7 +6,8 @@
                 <sidebar></sidebar>
                 <div class="col-9">
                     <h3 class="text-center">All Cryptocurrencies</h3>
-                    <table class="coins-table mx-auto">
+                    <p v-if="loading" class="text-center mt-5">Loading cryptocoins data...</p>
+                    <table v-else class="coins-table mx-auto">
                         <thead>
                             <tr>
                                 <th>#</th>
@@ -20,7 +21,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <router-link v-for="coin in coins" v-bind:key="coin.id" tag="tr" :to="'details/'+coin.name.toLowerCase()">
+                            <router-link v-for="coin in coins.data" v-bind:key="coin.id" tag="tr" :to="'details/'+coin.name.toLowerCase()">
                                 <td>{{coin.market_cap_rank}}</td>
                                 <td>
                                     <img :src=coin.image class="coin-icon">
@@ -93,7 +94,8 @@ export default {
     data() {
         return {
             coins: null,
-            logged: true
+            logged: true,
+            loading: true
         }
     },
 	components: {
@@ -102,7 +104,10 @@ export default {
     methods: {
         requestData() {
             this.$http.get('http://localhost:3000/api/coins')
-                .then(response => this.coins = response.data);
+                .then(response => {
+                    this.coins = response
+                    this.loading = false;
+                    });
         }
     },
     mounted() {
