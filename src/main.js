@@ -21,20 +21,122 @@ Vue.use(BootstrapVue);
 Vue.use(BootstrapVueIcons);
 
 const routes = [
-  { path: "/", component: Home },
-  { path: "/ranking", component: Ranking },
-  { path: "/transactions", component: Transactions },
-  { path: "/profile", component: Profile },
-  { path: "/wallet", component: Wallet },
-  { path: "/login", component: Login, name: "Login" },
-  { path: "/register", component: Register },
-  { path: "/reset", component: Reset },
-  { path: "/details/:coinId", component: Details, props: true },
+  {
+    path: "/",
+    name: "Home",
+    component: Home
+  },
+  {
+    path: "/details/:coinId",
+    name: "Details",
+    component: Details,
+    props: true
+  },
+  {
+    path: "/ranking",
+    name: "Ranking",
+    component: Ranking,
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: "/transactions",
+    name: "Transactions",
+    component: Transactions,
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: "/profile",
+    name: "Profile",
+    component: Profile,
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: "/wallet",
+    name: "Wallet",
+    component: Wallet,
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: "/login",
+    name: "Login",
+    component: Login,
+    meta: {
+      guest: true
+    }
+  },
+  {
+    path: "/register",
+    name: "Register",
+    component: Register,
+    meta: {
+      guest: true
+    }
+  },
+  {
+    path: "/reset",
+    name: "Reset",
+    component: Reset,
+    meta: {
+      guest: true
+    }
+  },
   // 404 Page
-  { path: "*", component: NotFound }
+  {
+    path: "*",
+    name: "NotFound",
+    component: NotFound
+  }
+  // Admin page
+  // {
+  //   path: "/admin",
+  //   name: "Admin",
+  //   component: Admin,
+  //   meta: {
+  //     requiresAuth: true,
+  //     is_admin: true
+  //   }
+  // }
 ];
 
 const router = new VueRouter({ routes: routes, mode: "history" });
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    if (localStorage.getItem("access_token") == null) {
+      next({
+        name: "Login",
+        params: { nextUrl: to.fullPath }
+      });
+    } else {
+      let user = JSON.parse(localStorage.getItem("user"));
+      if (to.matched.some(record => record.meta.is_admin)) {
+        if (user.role == 1) {
+          next();
+        } else {
+          next({ name: "Home" });
+        }
+      } else {
+        next();
+      }
+    }
+  } else if (to.matched.some(record => record.meta.guest)) {
+    if (localStorage.getItem("access_token") == null) {
+      next();
+    } else {
+      next({ name: "Home" });
+    }
+  } else {
+    next();
+  }
+});
 
 new Vue({
   el: "#app",
