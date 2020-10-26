@@ -88,8 +88,6 @@
 <script>
 import AppHeader from "../components/partials/Header.vue";
 import Sidebar from "../components/partials/Sidebar.vue";
-import {coinsList} from "../components/mock/coinlist.js";
-import axios from 'axios';
 
 export default {
     data() {
@@ -103,7 +101,7 @@ export default {
     },
     methods: {
         requestData() {
-            axios.get('http://localhost:3000/api/coins')
+            this.$http.get('http://localhost:3000/api/coins')
                 .then(response => this.coins = response.data);
         }
     },
