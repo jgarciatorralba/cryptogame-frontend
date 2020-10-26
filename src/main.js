@@ -7,9 +7,9 @@ import Ranking from "./components/Ranking.vue";
 import Transactions from "./components/Transactions.vue";
 import Profile from "./components/Profile.vue";
 import Wallet from "./components/Wallet.vue";
-import Login from "./components/Login.vue";
-import Register from "./components/Register.vue";
-import Reset from "./components/Reset.vue";
+import Login from "./components/auth/Login.vue";
+import Register from "./components/auth/Register.vue";
+import Reset from "./components/auth/Reset.vue";
 import Details from "./components/Details.vue";
 import NotFound from "./components/NotFound.vue";
 
@@ -26,7 +26,7 @@ const routes = [
   { path: "/transactions", component: Transactions },
   { path: "/profile", component: Profile },
   { path: "/wallet", component: Wallet },
-  { path: "/login", component: Login },
+  { path: "/login", component: Login, name: "Login" },
   { path: "/register", component: Register },
   { path: "/reset", component: Reset },
   { path: "/details/:coinId", component: Details, props: true },
