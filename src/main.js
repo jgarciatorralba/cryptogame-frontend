@@ -13,8 +13,8 @@ import Reset from "./components/Reset.vue";
 import Details from "./components/Details.vue";
 import NotFound from "./components/NotFound.vue";
 
-// TEST
-import Chart from "./components/partials/Chart.vue";
+import Axios from "axios";
+Vue.prototype.$http = Axios;
 
 Vue.use(VueRouter);
 Vue.use(BootstrapVue);
