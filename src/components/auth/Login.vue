@@ -116,7 +116,6 @@ export default {
           },
         })
           .then((response) => {
-            console.log(response);
             if (response.data.error !== null) {
               this.error = response.data.error;
             } else {
@@ -125,7 +124,22 @@ export default {
               localStorage.setItem("access_token", token);
               // Save user data in local storage
               const user = response.data.data.user;
-              localStorage.setItem("user", user);
+              localStorage.setItem("user", JSON.stringify(user));
+              // Check if user is admin
+              let is_admin = response.data.data.user.role;
+              // Re-direct depending on type of user
+              if (localStorage.getItem("access_token") != null) {
+                this.$emit("loggedIn");
+                if (this.$route.params.nextUrl != null) {
+                  this.$router.push(this.$route.params.nextUrl);
+                } else {
+                  if (is_admin == 1) {
+                    // this.$router.push({name: 'Admin'})
+                  } else {
+                    this.$router.push({ name: "Home" });
+                  }
+                }
+              }
             }
           })
           .catch((err) => {
