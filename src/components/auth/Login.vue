@@ -123,6 +123,9 @@ export default {
               // Save received token in local storage
               const token = response.data.data.accessToken;
               localStorage.setItem("access_token", token);
+              // Save user data in local storage
+              const user = response.data.data.user;
+              localStorage.setItem("user", user);
             }
           })
           .catch((err) => {
