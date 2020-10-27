@@ -7,13 +7,22 @@ export const registerUrl = apiDomain + "register";
 // export const resetUrl = apiDomain + "reset";
 
 // User URIs
-export const transactionsUrl = apiDomain + "api/trades";
+export let transactionsUrl = function(page, results) {
+  return apiDomain + "api/trades/" + page + "&" + results;
+};
 export const walletUrl = apiDomain + "api/wallet";
 export const buyUrl = apiDomain + "api/buy";
 export const sellUrl = apiDomain + "api/sell";
 export const rankingUrl = apiDomain + "api/ranking";
 export const coinsTableUrl = apiDomain + "api/coins";
-// export const coinChartUrl = apiDomain + "api/coin/";
+
+// External API coingecko
+export let coinDetailsUrl = function(coinId) {
+  return `https://api.coingecko.com/api/v3/coins/${coinId}?localization=false`;
+};
+export let coinChartUrl = function(id, currency, days) {
+  return `https://api.coingecko.com/api/v3/coins/${id}/market_chart?vs_currency=${currency}&days=${days}`;
+};
 
 // Admin URIs
 export const coinUrl = apiDomain + "admin/coin/"; // + coinId (e.g. 1)

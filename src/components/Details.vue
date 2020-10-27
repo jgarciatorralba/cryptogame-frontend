@@ -52,8 +52,12 @@
               </div>
               <div v-else class="coin-transaction mb-5">
                 <div>
-                  <span class="tag tag-buy active" v-on:click="transactionClick">BUY</span>
-                  <span class="tag tag-sell" v-on:click="transactionClick">SELL</span>
+                  <span class="tag tag-buy active" v-on:click="transactionClick"
+                    >BUY</span
+                  >
+                  <span class="tag tag-sell" v-on:click="transactionClick"
+                    >SELL</span
+                  >
                 </div>
                 <div class="details-transaction" id="buy">
                   <div>
@@ -111,6 +115,7 @@ import AppHeader from "./partials/Header.vue";
 import Chart from "./partials/Chart";
 import Errors from "./partials/Errors.vue";
 import Sidebar from "../components/partials/Sidebar.vue";
+import { coinDetailsUrl } from "../config/config.js";
 
 export default {
   props: ["coinId"],
@@ -119,7 +124,7 @@ export default {
       coin: null,
       error: null,
       success: null,
-      user : JSON.parse(localStorage.getItem("user")),
+      user: JSON.parse(localStorage.getItem("user")),
       details: {
         id: this.coinId,
         currency: "usd",
@@ -142,13 +147,11 @@ export default {
     Chart,
     AppHeader,
     Errors,
-    Sidebar
+    Sidebar,
   },
   methods: {
     getCoinData() {
-      fetch(
-        `https://api.coingecko.com/api/v3/coins/${this.coinId}?localization=false`
-      )
+      fetch(coinDetailsUrl(this.coinId))
         .then((response) => response.json())
         .then((data) => {
           if (data.error == undefined) {
@@ -181,15 +184,15 @@ export default {
       });
     },
     transactionClick() {
-      if(!event.target.classList.contains('active')) {
+      if (!event.target.classList.contains("active")) {
         let operation = event.target.innerText.toLowerCase();
         this.trade.operation = operation;
         document.querySelectorAll(".details-transaction").forEach((div) => {
-          div.classList.add('d-none');
+          div.classList.add("d-none");
         });
-        document.querySelector("#"+operation).classList.remove('d-none');
-        document.querySelector('.active').classList.remove('active')
-        event.target.classList.add('active')
+        document.querySelector("#" + operation).classList.remove("d-none");
+        document.querySelector(".active").classList.remove("active");
+        event.target.classList.add("active");
       }
     },
     updateCost() {

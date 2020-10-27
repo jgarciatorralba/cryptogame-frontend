@@ -1,0 +1,36 @@
+/* TABLE WITH ALL CRYPTOCURRENCIES */
+.coins-table {
+  border-collapse: collapse;
+  margin: 25px 0;
+  font-size: 0.9em;
+  font-family: sans-serif;
+  width: 100%;
+  thead tr {
+    background-color: rgb(33, 150, 243);
+    color: #ffffff;
+    text-align: left;
+  }
+  tbody tr {
+    cursor: pointer;
+    border-bottom: 1px solid #dddddd;
+  }
+  tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+  }
+  tbody tr:last-of-type {
+    border-bottom: 2px solid rgb(33, 150, 243);
+  }
+  tbody tr:hover {
+    user-select: none;
+    background-color: #c2c2c281;
+  }
+  th,
+  td {
+    padding: 12px 15px;
+  }
+  .coin-icon {
+    width: 32px;
+    height: 32px;
+    margin-right: 10px;
+  }
+}

@@ -73,6 +73,7 @@
 
 <script>
 import Errors from "../partials/Errors.vue";
+import { registerUrl } from "../../config/config.js";
 
 export default {
   data() {
@@ -118,7 +119,7 @@ export default {
         // Ajax request
         this.$http({
           method: "post",
-          url: "http://localhost:3000/register",
+          url: registerUrl,
           data: {
             name: this.name,
             email: this.email,
