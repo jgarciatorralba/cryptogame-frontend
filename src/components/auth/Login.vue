@@ -37,7 +37,11 @@
           required
         />
 
-        <errors v-bind:error="error" v-bind:success="success"></errors>
+        <errors
+          v-bind:error="error"
+          v-bind:success="success"
+          v-on:dismissed="resetMsg()"
+        ></errors>
 
         <button
           @click="sendForm"
@@ -67,6 +71,7 @@
 
 <script>
 import Errors from "../partials/Errors.vue";
+import { loginUrl } from "../../config/config.js";
 
 export default {
   data() {
@@ -106,7 +111,7 @@ export default {
         //Ajax request
         this.$http({
           method: "post",
-          url: "http://localhost:3000/login",
+          url: loginUrl,
           data: {
             email: this.email,
             password: this.password,
@@ -148,6 +153,10 @@ export default {
       } else {
         this.error = error;
       }
+    },
+    resetMsg() {
+      this.success = null;
+      this.error = null;
     },
   },
   mounted() {
