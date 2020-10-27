@@ -7,7 +7,9 @@ export const registerUrl = apiDomain + "register";
 // export const resetUrl = apiDomain + "reset";
 
 // User URIs
-export const transactionsUrl = apiDomain + "api/trades";
+export let transactionsUrl = function(page, results) {
+  return apiDomain + "api/trades/" + page + "&" + results;
+};
 export const walletUrl = apiDomain + "api/wallet";
 export const buyUrl = apiDomain + "api/buy";
 export const sellUrl = apiDomain + "api/sell";
