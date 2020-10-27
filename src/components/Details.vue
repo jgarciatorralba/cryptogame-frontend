@@ -73,7 +73,7 @@
                   </div>
                   <div v-if="!trade.byQnty">
                     <label class="custom-label">Amount:</label>
-                    <input type="number" :value=trade.cost disabled><span> USD</span>
+                    <input type="text" :value=trade.cost disabled><span> USD</span>
                   </div>
                   <div v-else>
                     <label class="custom-label">Amount:</label>
