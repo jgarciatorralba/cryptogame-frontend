@@ -18,8 +18,8 @@
 				</li>
 				<li class="border rounded mb-2">
 					<div class="rounded-top badge-primary p-1 mb-1">
-						<b-icon icon="percent" class="ml-2"></b-icon>
-						<small class="badge">Last balance</small>
+						<b-icon icon="cash-stack" class="ml-2"></b-icon>
+						<small class="badge">Balance</small>
 					</div>
 					<div class="d-block ml-3">+20%</div>
 				</li>
