@@ -139,7 +139,7 @@ export default {
                   this.$router.push(this.$route.params.nextUrl);
                 } else {
                   if (is_admin == 1) {
-                    // this.$router.push({name: 'Admin'})
+                    this.$router.push({ name: "Admin" });
                   } else {
                     this.$router.push({ name: "Home" });
                   }
