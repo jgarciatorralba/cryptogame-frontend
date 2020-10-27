@@ -6,58 +6,67 @@
                 <sidebar></sidebar>
                 <div class="col-9 px-5">
                     <h3 class="text-center mb-4">Wallet <b-icon icon="wallet2"></b-icon></h3>
-                    <table class="coins-table">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Symbol</th>
-                                <th>Quantity</th>
-                                <th>Price</th>
-                                <th>Value</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr v-for="(coin,key) in wallet.data.coins" v-bind:key=coin.symbol>
-                                <td>{{ key+1 }}</td>
-                                <td>{{ coin.symbol }}</td>
-                                <td>{{ coin.quantity }}</td>
-                                <td>${{ new Intl.NumberFormat("de-DE").format(coin.price) }}</td>
-                                <td>${{ new Intl.NumberFormat("de-DE").format(coin.value) }}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <table class="coins-table col-2 float-right">
-                        <thead>
-                            <tr>
-                                <th>Sub-total</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>${{ new Intl.NumberFormat("de-DE").format(wallet.data.value) }}</td>
-                            </tr>
-                        </tbody>
-                        <thead>
-                            <tr>
-                                <th>Balance</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>${{ new Intl.NumberFormat("de-DE").format(wallet.data.balance) }}</td>
-                            </tr>
-                        </tbody>
-                        <thead>
-                            <tr>
-                                <th>Total</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>${{ new Intl.NumberFormat("de-DE").format(wallet.data.total) }}</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <p v-if="loading" class="text-center mt-5">
+                        Loading wallet data...
+                    </p>
+                    <div v-else>
+                        <p v-if="wallet.error" class="col-12 py-2 badge badge-danger">{{ wallet.error }}</p>
+                        <div v-else>
+                            <table class="coins-table">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Symbol</th>
+                                        <th>Quantity</th>
+                                        <th>Price</th>
+                                        <th>Value</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr v-if="wallet.data.coins.length == 0"><td colspan=5 class="text-center">You don't own any cryptocurrency :(</td></tr>
+                                    <tr v-else v-for="(coin,key) in wallet.data.coins" v-bind:key=coin.symbol>
+                                        <td>{{ key+1 }}</td>
+                                        <td>{{ coin.symbol }}</td>
+                                        <td>{{ coin.quantity }}</td>
+                                        <td>${{ new Intl.NumberFormat("de-DE").format(coin.price) }}</td>
+                                        <td>${{ new Intl.NumberFormat("de-DE").format(coin.value) }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <table class="coins-table col-2 float-right">
+                                <thead>
+                                    <tr>
+                                        <th>Sub-total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>${{ new Intl.NumberFormat("de-DE").format(wallet.data.value) }}</td>
+                                    </tr>
+                                </tbody>
+                                <thead>
+                                    <tr>
+                                        <th>Balance</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>${{ new Intl.NumberFormat("de-DE").format(wallet.data.balance) }}</td>
+                                    </tr>
+                                </tbody>
+                                <thead>
+                                    <tr>
+                                        <th>Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>${{ new Intl.NumberFormat("de-DE").format(wallet.data.total) }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -102,20 +111,26 @@
 <script>
 import AppHeader from "../components/partials/Header.vue";
 import Sidebar from "../components/partials/Sidebar.vue";
-import {wallet} from "../components/mock/coinlist.js";
 
 export default {
     data() {
         return {
-            wallet: wallet,
-            logged: true
+            wallet: null,
+            loading: true
         }
     },
 	components: {
 		Sidebar, AppHeader
     },
     methods: {
-        requestData() {}
+        requestData() {
+            this.$http.get("http://localhost:3000/api/wallet", {
+                headers: {'Authorization': 'Bearer ' + localStorage.getItem('access_token')}})
+                .then((response) => {
+                    this.wallet = response.data;
+                    this.loading = false;
+            });
+        }
     },
     mounted() {
         this.requestData();
