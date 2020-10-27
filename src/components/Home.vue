@@ -22,6 +22,7 @@
 import AppHeader from "../components/partials/Header.vue";
 import Sidebar from "../components/partials/Sidebar.vue";
 import Coins from "../components/partials/Coins.vue";
+import { coinsTableUrl } from "../config/config.js";
 
 export default {
   data() {
@@ -38,7 +39,7 @@ export default {
   },
   methods: {
     requestData() {
-      this.$http.get("http://localhost:3000/api/coins").then((response) => {
+      this.$http.get(coinsTableUrl).then((response) => {
         this.coins = response;
         this.loading = false;
       });
