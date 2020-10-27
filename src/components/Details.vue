@@ -209,16 +209,18 @@ export default {
       this.updateCost();
     },
     buy() {
-      this.$http("http://localhost:3000/api/buy", {
-                  method: 'POST',
-                  headers: {
-                    'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
-                    'Content-Type': 'application/json'
-                  },
-                  data: {symbol: this.trade.coin, quantity: this.trade.coinsQnty }
-                }).then((response) => {
-                    console.log(response);
-            });
+      if (this.trade.coinsQnty > 0) {
+        this.$http("http://localhost:3000/api/buy", {
+                    method: 'POST',
+                    headers: {
+                      'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                      'Content-Type': 'application/json'
+                    },
+                    data: {symbol: this.trade.coin, quantity: this.trade.coinsQnty }
+                  }).then((response) => {
+                      console.log(response);
+                  });
+      }
     }
   },
   mounted() {
