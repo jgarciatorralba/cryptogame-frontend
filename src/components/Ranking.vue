@@ -14,7 +14,8 @@
                             {{ ranking.error }}
                         </p>
                         <div v-else v-for="player in ranking.data" v-bind:key="player.name" class="col-8 mx-auto row py-3 border-bottom">
-                            <img class="rounded-circle col-2" src="player.avatar">
+                            <img v-if="player.avatar" class="rounded-circle col-2" :src="player.avatar">
+                            <img v-else class="rounded-circle col-2" src="https://www.worldfuturecouncil.org/wp-content/uploads/2020/02/dummy-profile-pic-300x300-1.png">
                             <div class="col-7">
                                 <p class="h6">{{ player.name }}</p>
                                 <small class="d-block">Total: ${{ new Intl.NumberFormat("de-DE").format(player.total) }} USD</small>
