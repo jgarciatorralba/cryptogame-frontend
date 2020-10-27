@@ -6,8 +6,14 @@
                 <sidebar></sidebar>
                 <div class="col-9 text-center">
                         <h3 class="mb-4">Transactions</h3>
-                    <div class="col-8 mx-auto">
-                        <div v-for="transaction in transactions" v-bind:key=transaction.id>
+                    <p v-if="loading" class="text-center mt-5">
+                        Loading cryptocoins data...
+                    </p>
+                    <div v-else class="col-8 mx-auto">
+                        <p v-if="transactions.error" class="text-center mt-5">
+                            {{ transactions.error }}
+                        </p>
+                        <div v-else v-for="transaction in transactions.data.trades" v-bind:key=transaction.id>
                             <div v-if="transaction.type == 'buy'" class="transaction transaction-bought">
                                 <span>{{ transaction.user }}</span>
                                 bought {{ transaction.quantity }}
@@ -56,20 +62,27 @@
 <script>
 import AppHeader from "../components/partials/Header.vue";
 import Sidebar from "../components/partials/Sidebar.vue";
-import {transactions} from "../components/mock/coinlist.js";
+//import {transactions} from "../components/mock/coinlist.js";
 
 export default {
     data() {
         return {
-            transactions: transactions,
-            logged: true
+            transactions: null,
+            loading: true
         }
     },
 	components: {
 		Sidebar, AppHeader
     },
     methods: {
-        requestData() {}
+        requestData() {
+            this.$http.get("http://localhost:3000/api/trades", {
+                headers: {'Authorization': 'Bearer ' + localStorage.getItem('access_token')}})
+                .then((response) => {
+                    this.transactions = response.data;
+                    this.loading = false;
+            });
+        }
     },
     mounted() {
         this.requestData();
