@@ -8,20 +8,21 @@
                     <div class="row justify-content-center">
                         <div class="col-2 text-right">
                             <label for="avatar">
-                                <img src="https://www.worldfuturecouncil.org/wp-content/uploads/2020/02/dummy-profile-pic-300x300-1.png" class="avatar align-self-end rounded-circle">
+                                <img v-if="user.avatar" :src="user.avatar">
+                                <img v-else src="https://www.worldfuturecouncil.org/wp-content/uploads/2020/02/dummy-profile-pic-300x300-1.png" class="avatar align-self-end rounded-circle">
                                 <input name="avatar" id="avatar" type="file" accept="image/jpeg" class="d-none">
                             </label>
                         </div>
                         <div class="col-3">
-                            <p class="h4">Username</p>
+                            <p class="h4">{{user.name}}</p>
                             <div class="row">
                                 <div class="col-4">
-                                    <small class="text-muted d-block">Ranking:</small>
-                                    <small class="text-muted d-block">Wallet:</small>
+                                    <small class="text-muted d-block">Ranking: #{{ user.ranking }}</small>
+                                    <small class="text-muted d-block">Wallet: ${{ new Intl.NumberFormat("de-DE").format(user.walletTotal) }}</small>
                                 </div>
                                 <div class="col-6">
-                                    <small class="text-muted d-block">Last balance:</small>
-                                    <small class="text-muted d-block">Most bought:</small>
+                                    <small class="text-muted d-block">Balance: ${{ new Intl.NumberFormat("de-DE").format(user.walletBalance) }}</small>
+                                    <small class="text-muted d-block">Most bought: {{ user.mostBought }}</small>
                                 </div>
                             </div>
                         </div>
@@ -29,13 +30,13 @@
                     <div class="row justify-content-center mt-4">
                         <div class="col-2">
                             <label class="d-block">Name</label>
-                            <input type="text" class="form-control">
+                            <input type="text" class="form-control" :value="user.name">
                         </div>
                     </div>
                     <div class="row justify-content-center mt-4">
                         <div class="col-2">
                             <label class="d-block">Email</label>
-                            <input type="text" class="form-control">
+                            <input type="text" class="form-control" :value="user.email">
                         </div>
                     </div>
                     <div class="row justify-content-center">
@@ -50,20 +51,24 @@
 </template>
 
 <style lang="scss" scoped>
-    .avatar {
-        width: 100px;
-        cursor: pointer;
-    }
+        .avatar {
+            width: 100px;
+            cursor: pointer;
+        }
+        input {
+            width: 300px;
+        }
 </style>
 
 <script>
 import AppHeader from "../components/partials/Header.vue";
 import Sidebar from "../components/partials/Sidebar.vue";
+console.log(JSON.parse(localStorage.getItem("user")));
 
 export default {
     data() {
         return {
-            
+            user: JSON.parse(localStorage.getItem("user"))
         }
     },
 	components: {
