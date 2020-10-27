@@ -50,11 +50,11 @@
                   </div>
                   <div>
                     <label>Amount:</label>
-                    <input type="number" :value=trade.amount disabled>
+                    <input type="number" :value=trade.cost @change="updateCost" disabled><span> USD</span>
                   </div>
                   <div>
                     <label>% :</label>
-                    <input v-model="trade.amount" type="range" min="0" max="100" step="1">
+                    <input v-model="trade.amount" type="range" min="0" max="100" step="1"><span> {{ trade.amount }}%</span>
                   </div>
                   <button class="btn btn-primary">BUY</button>
                 </div>
@@ -65,7 +65,7 @@
                   </div>
                   <div>
                     <label>Amount:</label>
-                    <input type="number" :value=trade.amount disabled>
+                    <input type="number" :value=trade.cost disabled>
                   </div>
                   <div>
                     <label>% :</label>
@@ -95,6 +95,7 @@ export default {
       coin: null,
       error: null,
       success: null,
+      user : JSON.parse(localStorage.getItem("user")),
       details: {
         id: this.coinId,
         currency: "usd",
@@ -102,7 +103,8 @@ export default {
       },
       trade: {
         coin: null,
-        amount: null,
+        amount: 0,
+        cost: null,
         type: 'buy'
       },
       loading: true,
@@ -123,7 +125,6 @@ export default {
           if (data.error == undefined) {
             this.coin = data;
             this.trade.coin = data.symbol;
-            console.log(data);
           } else {
             this.error = data.error;
           }
@@ -138,6 +139,7 @@ export default {
     transactionClick() {
       if(!event.target.classList.contains('active')) {
         let operation = event.target.innerText.toLowerCase();
+        this.trade.operation = operation;
         document.querySelectorAll(".details-transaction").forEach((div) => {
           div.classList.add('d-none');
         });
@@ -145,6 +147,9 @@ export default {
         document.querySelector('.active').classList.remove('active')
         event.target.classList.add('active')
       }
+    },
+    updateCost() {
+      this.trade.cost = this.amount * this.user.walletBalance;
     }
   },
   mounted() {
