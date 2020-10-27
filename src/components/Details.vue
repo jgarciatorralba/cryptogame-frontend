@@ -3,7 +3,8 @@
     <app-header></app-header>
     <div class="container">
       <div class="row">
-        <div class="col-lg-2"></div>
+        <sidebar v-if="user"></sidebar>
+        <div v-else class="col-lg-2"></div>
         <div class="col-lg-8">
           <div v-if="loading">
             <p class="my-2">Loading coin information...</p>
@@ -38,7 +39,18 @@
                 </h2>
               </div>
               <chart v-bind:details="details"></chart>
-              <div class="coin-transaction mb-5">
+              <div v-if="!user" class="details-transaction">
+                <div class="coin-transaction mb-5">
+                  <div>
+                    <span class="tag tag-buy active">BUY</span>
+                    <span class="tag tag-sell">SELL</span>
+                  </div>
+                  <div class="details-transaction">
+                    <p>You must log in to BUY or SELL some cryptocurrency.</p>
+                  </div>
+                </div>
+              </div>
+              <div v-else class="coin-transaction mb-5">
                 <div>
                   <span class="tag tag-buy active" v-on:click="transactionClick">BUY</span>
                   <span class="tag tag-sell" v-on:click="transactionClick">SELL</span>
@@ -50,11 +62,11 @@
                   </div>
                   <div>
                     <label>Amount:</label>
-                    <input type="number" :value=trade.amount disabled>
+                    <input type="number" :value=trade.cost disabled><span> USD</span>
                   </div>
                   <div>
                     <label>% :</label>
-                    <input v-model="trade.amount" type="range" min="0" max="100" step="1">
+                    <input v-model="trade.amount" type="range" min="0" max="100" step="1" v-on:input="updateCost"><span> {{ trade.amount }}%</span>
                   </div>
                   <button class="btn btn-primary">BUY</button>
                 </div>
@@ -65,7 +77,7 @@
                   </div>
                   <div>
                     <label>Amount:</label>
-                    <input type="number" :value=trade.amount disabled>
+                    <input type="number" :value=trade.cost disabled>
                   </div>
                   <div>
                     <label>% :</label>
@@ -87,6 +99,7 @@
 import AppHeader from "./partials/Header.vue";
 import Chart from "./partials/Chart";
 import Errors from "./partials/Errors.vue";
+import Sidebar from "../components/partials/Sidebar.vue";
 
 export default {
   props: ["coinId"],
@@ -95,6 +108,7 @@ export default {
       coin: null,
       error: null,
       success: null,
+      user : JSON.parse(localStorage.getItem("user")),
       details: {
         id: this.coinId,
         currency: "usd",
@@ -102,7 +116,8 @@ export default {
       },
       trade: {
         coin: null,
-        amount: null,
+        amount: 0,
+        cost: null,
         type: 'buy'
       },
       loading: true,
@@ -112,6 +127,7 @@ export default {
     Chart,
     AppHeader,
     Errors,
+    Sidebar
   },
   methods: {
     getCoinData() {
@@ -123,14 +139,12 @@ export default {
           if (data.error == undefined) {
             this.coin = data;
             this.trade.coin = data.symbol;
-            console.log(data);
           } else {
             this.error = data.error;
           }
           this.loading = false;
         })
         .catch((e) => {
-          console.log(e);
           this.error = e;
           this.loading = false;
         });
@@ -138,6 +152,7 @@ export default {
     transactionClick() {
       if(!event.target.classList.contains('active')) {
         let operation = event.target.innerText.toLowerCase();
+        this.trade.operation = operation;
         document.querySelectorAll(".details-transaction").forEach((div) => {
           div.classList.add('d-none');
         });
@@ -145,6 +160,10 @@ export default {
         document.querySelector('.active').classList.remove('active')
         event.target.classList.add('active')
       }
+    },
+    updateCost() {
+      let cost = (this.trade.amount * 0.01) * this.user.walletBalance;
+      this.trade.cost = new Intl.NumberFormat("de-DE").format(cost);
     }
   },
   mounted() {
