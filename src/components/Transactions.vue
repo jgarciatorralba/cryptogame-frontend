@@ -62,7 +62,6 @@
 <script>
 import AppHeader from "../components/partials/Header.vue";
 import Sidebar from "../components/partials/Sidebar.vue";
-//import {transactions} from "../components/mock/coinlist.js";
 
 export default {
     data() {
