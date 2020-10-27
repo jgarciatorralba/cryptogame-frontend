@@ -37,6 +37,7 @@
 }
 
 .coin-transaction {
+  user-select: none;
   .tag {
     background-color: rgb(253, 236, 236);
     border: 1px solid rgb(30, 34, 45);
@@ -67,7 +68,7 @@
     border: 1px solid gray;
     padding: 30px 30px;
     border-radius: 2px;
-    label {
+    .custom-label {
       width: 80px;
     }
     button {
