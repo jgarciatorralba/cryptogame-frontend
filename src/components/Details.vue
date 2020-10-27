@@ -38,7 +38,7 @@
                 </h2>
               </div>
               <chart v-bind:details="details"></chart>
-              <div class="coin-transaction">
+              <div class="coin-transaction mb-5">
                 <div>
                   <span class="tag tag-buy active" v-on:click="transactionClick">BUY</span>
                   <span class="tag tag-sell" v-on:click="transactionClick">SELL</span>
