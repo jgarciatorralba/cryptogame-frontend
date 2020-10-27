@@ -30,6 +30,7 @@ export default {
   methods: {
     dismissAlert() {
       $(".cont-message").fadeOut(400);
+      this.$emit("dismissed");
     },
   },
   updated() {
