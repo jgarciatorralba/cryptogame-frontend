@@ -7,7 +7,7 @@
                 <div class="col-9 text-center">
                         <h3 class="mb-4">Transactions</h3>
                     <p v-if="loading" class="text-center mt-5">
-                        Loading cryptocoins data...
+                        Loading transactions data...
                     </p>
                     <div v-else class="col-8 mx-auto">
                         <p v-if="transactions.error" class="text-center mt-5">
