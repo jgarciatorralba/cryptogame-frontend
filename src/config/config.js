@@ -13,7 +13,6 @@ export const buyUrl = apiDomain + "api/buy";
 export const sellUrl = apiDomain + "api/sell";
 export const rankingUrl = apiDomain + "api/ranking";
 export const coinsTableUrl = apiDomain + "api/coins";
-// export const coinChartUrl = apiDomain + "api/coin/";
 
 // Admin URIs
 export const coinUrl = apiDomain + "admin/coin/"; // + coinId (e.g. 1)
