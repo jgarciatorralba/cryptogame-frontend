@@ -107,7 +107,7 @@ export default {
                 .then(response => {
                     this.coins = response
                     this.loading = false;
-                    });
+                });
         }
     },
     mounted() {
