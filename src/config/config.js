@@ -14,6 +14,14 @@ export const sellUrl = apiDomain + "api/sell";
 export const rankingUrl = apiDomain + "api/ranking";
 export const coinsTableUrl = apiDomain + "api/coins";
 
+// External API coingecko
+export let coinDetailsUrl = function(coinId) {
+  return `https://api.coingecko.com/api/v3/coins/${coinId}?localization=false`;
+};
+export let coinChartUrl = function(id, currency, days) {
+  return `https://api.coingecko.com/api/v3/coins/${id}/market_chart?vs_currency=${currency}&days=${days}`;
+};
+
 // Admin URIs
 export const coinUrl = apiDomain + "admin/coin/"; // + coinId (e.g. 1)
 export const paginatedUsersUrl = apiDomain + "admin/users/"; // + limit&offset (e.g. 2&2)
