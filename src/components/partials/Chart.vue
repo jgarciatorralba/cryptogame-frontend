@@ -14,6 +14,7 @@
 <script>
 import moment from "moment";
 import Chart from "chart.js";
+import { coinChartUrl } from "../../config/config.js";
 
 export default {
   props: ["details"],
@@ -26,7 +27,7 @@ export default {
   methods: {
     getData() {
       fetch(
-        `https://api.coingecko.com/api/v3/coins/${this.details.id}/market_chart?vs_currency=${this.details.currency}&days=${this.details.days}`
+        coinChartUrl(this.details.id, this.details.currency, this.details.days)
       )
         .then((response) => response.json())
         .then((data) => {

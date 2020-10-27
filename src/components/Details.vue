@@ -52,36 +52,64 @@
               </div>
               <div v-else class="coin-transaction mb-5">
                 <div>
-                  <span class="tag tag-buy active" v-on:click="transactionClick">BUY</span>
-                  <span class="tag tag-sell" v-on:click="transactionClick">SELL</span>
+                  <span class="tag tag-buy active" v-on:click="transactionClick"
+                    >BUY</span
+                  >
+                  <span class="tag tag-sell" v-on:click="transactionClick"
+                    >SELL</span
+                  >
                 </div>
                 <div class="details-transaction" id="buy">
                   <div>
                     <label>Price:</label>
-                    <input type="text" :value="'market value ('+coin.symbol+')'" disabled>
+                    <input
+                      type="text"
+                      :value="'market value (' + coin.symbol + ')'"
+                      disabled
+                    />
                   </div>
                   <div>
                     <label>Amount:</label>
-                    <input type="number" :value=trade.cost disabled><span> USD</span>
+                    <input type="number" :value="trade.cost" disabled /><span>
+                      USD</span
+                    >
                   </div>
                   <div>
                     <label>% :</label>
-                    <input v-model="trade.amount" type="range" min="0" max="100" step="1" v-on:input="updateCost"><span> {{ trade.amount }}%</span>
+                    <input
+                      v-model="trade.amount"
+                      type="range"
+                      min="0"
+                      max="100"
+                      step="1"
+                      v-on:input="updateCost"
+                    /><span> {{ trade.amount }}%</span>
                   </div>
                   <button class="btn btn-primary">BUY</button>
                 </div>
                 <div class="details-transaction d-none" id="sell">
                   <div>
                     <label>Price:</label>
-                    <input type="text" :value="'market value ('+coin.symbol+')'" disabled>
+                    <input
+                      type="text"
+                      :value="'market value (' + coin.symbol + ')'"
+                      disabled
+                    />
                   </div>
                   <div>
                     <label>Amount:</label>
-                    <input type="number" :value=trade.cost disabled>
+                    <input type="number" :value="trade.cost" disabled />
                   </div>
                   <div>
                     <label>% :</label>
-                    <input v-model="trade.amount" type="range" class="sell-range" min="0" max="100" step="1">
+                    <input
+                      v-model="trade.amount"
+                      type="range"
+                      class="sell-range"
+                      min="0"
+                      max="100"
+                      step="1"
+                    />
                   </div>
                   <button class="btn btn-success">SELL</button>
                 </div>
@@ -100,6 +128,7 @@ import AppHeader from "./partials/Header.vue";
 import Chart from "./partials/Chart";
 import Errors from "./partials/Errors.vue";
 import Sidebar from "../components/partials/Sidebar.vue";
+import { coinDetailsUrl } from "../config/config.js";
 
 export default {
   props: ["coinId"],
@@ -108,7 +137,7 @@ export default {
       coin: null,
       error: null,
       success: null,
-      user : JSON.parse(localStorage.getItem("user")),
+      user: JSON.parse(localStorage.getItem("user")),
       details: {
         id: this.coinId,
         currency: "usd",
@@ -118,7 +147,7 @@ export default {
         coin: null,
         amount: 0,
         cost: null,
-        type: 'buy'
+        type: "buy",
       },
       loading: true,
     };
@@ -127,13 +156,11 @@ export default {
     Chart,
     AppHeader,
     Errors,
-    Sidebar
+    Sidebar,
   },
   methods: {
     getCoinData() {
-      fetch(
-        `https://api.coingecko.com/api/v3/coins/${this.coinId}?localization=false`
-      )
+      fetch(coinDetailsUrl(this.coinId))
         .then((response) => response.json())
         .then((data) => {
           if (data.error == undefined) {
@@ -150,21 +177,21 @@ export default {
         });
     },
     transactionClick() {
-      if(!event.target.classList.contains('active')) {
+      if (!event.target.classList.contains("active")) {
         let operation = event.target.innerText.toLowerCase();
         this.trade.operation = operation;
         document.querySelectorAll(".details-transaction").forEach((div) => {
-          div.classList.add('d-none');
+          div.classList.add("d-none");
         });
-        document.querySelector("#"+operation).classList.remove('d-none');
-        document.querySelector('.active').classList.remove('active')
-        event.target.classList.add('active')
+        document.querySelector("#" + operation).classList.remove("d-none");
+        document.querySelector(".active").classList.remove("active");
+        event.target.classList.add("active");
       }
     },
     updateCost() {
-      let cost = (this.trade.amount * 0.01) * this.user.walletBalance;
+      let cost = this.trade.amount * 0.01 * this.user.walletBalance;
       this.trade.cost = new Intl.NumberFormat("de-DE").format(cost);
-    }
+    },
   },
   mounted() {
     this.getCoinData();
