@@ -3,7 +3,8 @@
     <app-header></app-header>
     <div class="container">
       <div class="row">
-        <div class="col-lg-2"></div>
+        <sidebar v-if="user"></sidebar>
+        <div v-else class="col-lg-2"></div>
         <div class="col-lg-8">
           <div v-if="loading">
             <p class="my-2">Loading coin information...</p>
@@ -38,7 +39,18 @@
                 </h2>
               </div>
               <chart v-bind:details="details"></chart>
-              <div class="coin-transaction mb-5">
+              <div v-if="!user" class="details-transaction">
+                <div class="coin-transaction mb-5">
+                  <div>
+                    <span class="tag tag-buy active">BUY</span>
+                    <span class="tag tag-sell">SELL</span>
+                  </div>
+                  <div class="details-transaction">
+                    <p>You must log in to BUY or SELL some cryptocurrency.</p>
+                  </div>
+                </div>
+              </div>
+              <div v-else class="coin-transaction mb-5">
                 <div>
                   <span class="tag tag-buy active" v-on:click="transactionClick">BUY</span>
                   <span class="tag tag-sell" v-on:click="transactionClick">SELL</span>
@@ -50,11 +62,11 @@
                   </div>
                   <div>
                     <label>Amount:</label>
-                    <input type="number" :value=trade.cost @change="updateCost" disabled><span> USD</span>
+                    <input type="number" :value=trade.cost disabled><span> USD</span>
                   </div>
                   <div>
                     <label>% :</label>
-                    <input v-model="trade.amount" type="range" min="0" max="100" step="1"><span> {{ trade.amount }}%</span>
+                    <input v-model="trade.amount" type="range" min="0" max="100" step="1" v-on:input="updateCost"><span> {{ trade.amount }}%</span>
                   </div>
                   <button class="btn btn-primary">BUY</button>
                 </div>
@@ -87,6 +99,7 @@
 import AppHeader from "./partials/Header.vue";
 import Chart from "./partials/Chart";
 import Errors from "./partials/Errors.vue";
+import Sidebar from "../components/partials/Sidebar.vue";
 
 export default {
   props: ["coinId"],
@@ -114,6 +127,7 @@ export default {
     Chart,
     AppHeader,
     Errors,
+    Sidebar
   },
   methods: {
     getCoinData() {
@@ -131,7 +145,6 @@ export default {
           this.loading = false;
         })
         .catch((e) => {
-          console.log(e);
           this.error = e;
           this.loading = false;
         });
@@ -149,7 +162,8 @@ export default {
       }
     },
     updateCost() {
-      this.trade.cost = this.amount * this.user.walletBalance;
+      let cost = (this.trade.amount * 0.01) * this.user.walletBalance;
+      this.trade.cost = new Intl.NumberFormat("de-DE").format(cost);
     }
   },
   mounted() {
