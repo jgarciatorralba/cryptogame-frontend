@@ -7,7 +7,7 @@
                 <div class="col-9">
                     <h3 class="text-center">Leaderboard</h3>
                     <p v-if="loading" class="text-center mt-5">
-                        Loading cryptocoins data...
+                        Loading raking data...
                     </p>
                     <div v-else class="row">
                         <p v-if="ranking.error" class="col-12 text-center mt-5">
