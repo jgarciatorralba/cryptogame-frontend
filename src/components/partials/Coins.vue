@@ -18,7 +18,7 @@
           v-for="(coin, index) in coins.data"
           v-bind:key="coin.id"
           tag="tr"
-          :to="'details/' + coin.name.toLowerCase()"
+          :to="'details/' + coin.name.toLowerCase().replace(/ /g, '-')"
         >
           <td>{{ index + 1 }}</td>
           <td>
