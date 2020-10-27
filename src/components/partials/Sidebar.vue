@@ -46,8 +46,6 @@
 <style lang="scss" scoped>
 	.sidebar{
 		border-radius: 6px;
-		box-shadow: 0 0 0 1px #e0e3eb;
-		padding: 20px 20px;
 		ul {
 			padding: 0;
             list-style-type: none;
