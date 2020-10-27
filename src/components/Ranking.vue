@@ -6,19 +6,25 @@
                 <sidebar></sidebar>
                 <div class="col-9">
                     <h3 class="text-center">Leaderboard</h3>
-                    <div class="row">
-                        <div v-for="(player,key) in ranking.data" v-bind:key="player.name" class="col-8 mx-auto row py-3 border-bottom">
+                    <p v-if="loading" class="text-center mt-5">
+                        Loading cryptocoins data...
+                    </p>
+                    <div v-else class="row">
+                        <p v-if="ranking.error" class="col-12 text-center mt-5">
+                            {{ ranking.error }}
+                        </p>
+                        <div v-else v-for="player in ranking.data" v-bind:key="player.name" class="col-8 mx-auto row py-3 border-bottom">
                             <img class="rounded-circle col-2" src="player.avatar">
                             <div class="col-7">
                                 <p class="h6">{{ player.name }}</p>
-                                <small class="d-block">Balance: ${{ new Intl.NumberFormat("de-DE").format(player.balance) }} USD</small>
+                                <small class="d-block">Total: ${{ new Intl.NumberFormat("de-DE").format(player.total) }} USD</small>
                                 <small class="">Most bought: Bitcoin</small>
                             </div>
                             <p class="col-3 h6 my-auto text-right">
-                                <b-icon v-if="key == 0" icon="trophy-fill" class="mr-1" variant="warning"></b-icon>
-                                <b-icon v-if="key == 1" icon="trophy-fill" class="mr-1" variant="secondary"></b-icon>
-                                <b-icon v-if="key == 2" icon="trophy-fill" class="mr-1" variant="danger"></b-icon>
-                                Rank {{ key+1 }}
+                                <b-icon v-if="player.position == 1" icon="trophy-fill" class="mr-1" variant="warning"></b-icon>
+                                <b-icon v-if="player.position == 2" icon="trophy-fill" class="mr-1" variant="secondary"></b-icon>
+                                <b-icon v-if="player.position == 3" icon="trophy-fill" class="mr-1" variant="danger"></b-icon>
+                                Rank {{ player.position }}
                             </p>
                         </div>
                     </div>
@@ -34,20 +40,26 @@
 <script>
 import AppHeader from "../components/partials/Header.vue";
 import Sidebar from "../components/partials/Sidebar.vue";
-import {ranking} from "../components/mock/coinlist.js";
 
 export default {
     data() {
         return {
-            ranking: ranking,
-            logged: true
+            ranking: null,
+            loading: true
         }
     },
 	components: {
 		Sidebar, AppHeader
     },
     methods: {
-        requestData() {}
+        requestData() {
+            this.$http.get("http://localhost:3000/api/ranking", {
+                headers: {'Authorization': 'Bearer ' + localStorage.getItem('access_token')}})
+                .then((response) => {
+                    this.ranking = response.data;
+                    this.loading = false;
+            });
+        }
     },
     mounted() {
         this.requestData();
