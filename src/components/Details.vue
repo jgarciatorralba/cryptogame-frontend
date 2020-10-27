@@ -42,13 +42,41 @@
                 </h2>
               </div>
               <chart v-bind:details="details"></chart>
-              <div class="description my-2 px-3">
-                <p>
-                  <span v-html="coin.description.en"></span>
-                </p>
-              </div>
-              <div class="text-center">
-                <button class="btn btn-primary mb-3">Buy now</button>
+              <div class="coin-transaction">
+                <div>
+                  <span class="tag tag-buy active" v-on:click="transactionClick">BUY</span>
+                  <span class="tag tag-sell" v-on:click="transactionClick">SELL</span>
+                </div>
+                <div class="details-transaction" id="buy">
+                  <div>
+                    <label>Price:</label>
+                    <input type="text" :value="'market value ('+coin.symbol+')'" disabled>
+                  </div>
+                  <div>
+                    <label>Amount:</label>
+                    <input type="number" :value=trade.amount disabled>
+                  </div>
+                  <div>
+                    <label>% :</label>
+                    <input v-model="trade.amount" type="range" min="0" max="100" step="1">
+                  </div>
+                  <button class="btn btn-primary">BUY</button>
+                </div>
+                <div class="details-transaction d-none" id="sell">
+                  <div>
+                    <label>Price:</label>
+                    <input type="text" :value="'market value ('+coin.symbol+')'" disabled>
+                  </div>
+                  <div>
+                    <label>Amount:</label>
+                    <input type="number" :value=trade.amount disabled>
+                  </div>
+                  <div>
+                    <label>% :</label>
+                    <input v-model="trade.amount" type="range" class="sell-range" min="0" max="100" step="1">
+                  </div>
+                  <button class="btn btn-success">SELL</button>
+                </div>
               </div>
             </div>
           </div>
@@ -74,6 +102,11 @@ export default {
         currency: "usd",
         days: 1,
       },
+      trade: {
+        coin: null,
+        amount: null,
+        type: 'buy'
+      },
       loading: true,
     };
   },
@@ -90,6 +123,7 @@ export default {
         .then((data) => {
           if (data.error == undefined) {
             this.coin = data;
+            this.trade.coin = data.symbol;
             console.log(data);
           } else {
             this.error = data.error;
@@ -102,6 +136,17 @@ export default {
           this.loading = false;
         });
     },
+    transactionClick() {
+      if(!event.target.classList.contains('active')) {
+        let operation = event.target.innerText.toLowerCase();
+        document.querySelectorAll(".details-transaction").forEach((div) => {
+          div.classList.add('d-none');
+        });
+        document.querySelector("#"+operation).classList.remove('d-none');
+        document.querySelector('.active').classList.remove('active')
+        event.target.classList.add('active')
+      }
+    }
   },
   mounted() {
     this.getCoinData();
