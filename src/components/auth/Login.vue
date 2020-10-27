@@ -37,7 +37,11 @@
           required
         />
 
-        <errors v-bind:error="error" v-bind:success="success"></errors>
+        <errors
+          v-bind:error="error"
+          v-bind:success="success"
+          v-on:dismissed="resetMsg()"
+        ></errors>
 
         <button
           @click="sendForm"
@@ -148,6 +152,10 @@ export default {
       } else {
         this.error = error;
       }
+    },
+    resetMsg() {
+      this.success = null;
+      this.error = null;
     },
   },
   mounted() {
