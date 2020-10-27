@@ -125,21 +125,9 @@ export default {
         this.loading = false;
       });
     },
-	components: {
-		Sidebar, AppHeader
-    },
-    methods: {
-        requestData() {
-            this.$http.get('http://localhost:3000/api/coins')
-                .then(response => {
-                    this.coins = response
-                    this.loading = false;
-                });
-        }
-    },
+  },
     mounted() {
         this.requestData();
-    }
-  }
-}
+    },
+  };
 </script>
