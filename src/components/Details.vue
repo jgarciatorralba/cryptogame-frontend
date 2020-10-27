@@ -57,30 +57,41 @@
                 </div>
                 <div class="details-transaction" id="buy">
                   <div>
-                    <label>Price:</label>
+                    <label class="custom-label">Price:</label>
                     <input type="text" :value="'market value ('+coin.symbol+')'" disabled>
                   </div>
                   <div>
-                    <label>Amount:</label>
+                    <div class="custom-control custom-switch mb-3">
+                      <input type="checkbox" class="custom-control-input" id="customSwitch1" v-on:click="buyMode">
+                      <label class="custom-control-label" for="customSwitch1"></label>
+                      <span>USD / Coin unity</span>
+                    </div>
+                  </div>
+                  <div v-if="!trade.byQnty">
+                    <label class="custom-label">Amount:</label>
                     <input type="number" :value=trade.cost disabled><span> USD</span>
                   </div>
+                  <div v-else>
+                    <label class="custom-label">Amount:</label>
+                    <input type="number" :value=trade.cost disabled><span> {{trade.coin.toUpperCase()}} Coins</span>
+                  </div>
                   <div>
-                    <label>% :</label>
+                    <label class="custom-label">% :</label>
                     <input v-model="trade.amount" type="range" min="0" max="100" step="1" v-on:input="updateCost"><span> {{ trade.amount }}%</span>
                   </div>
-                  <button class="btn btn-primary">BUY</button>
+                  <button class="btn btn-primary" v-on:click="buy">BUY</button>
                 </div>
                 <div class="details-transaction d-none" id="sell">
                   <div>
-                    <label>Price:</label>
+                    <label class="custom-label">Price:</label>
                     <input type="text" :value="'market value ('+coin.symbol+')'" disabled>
                   </div>
                   <div>
-                    <label>Amount:</label>
+                    <label class="custom-label">Amount:</label>
                     <input type="number" :value=trade.cost disabled>
                   </div>
                   <div>
-                    <label>% :</label>
+                    <label class="custom-label">% :</label>
                     <input v-model="trade.amount" type="range" class="sell-range" min="0" max="100" step="1">
                   </div>
                   <button class="btn btn-success">SELL</button>
@@ -117,8 +128,12 @@ export default {
       trade: {
         coin: null,
         amount: 0,
+        amountCoins: 0,
         cost: null,
-        type: 'buy'
+        type: 'buy',
+        byQnty: false,
+        wallet: null,
+        price: null
       },
       loading: true,
     };
@@ -139,6 +154,8 @@ export default {
           if (data.error == undefined) {
             this.coin = data;
             this.trade.coin = data.symbol;
+            this.getWallet();
+            this.getPrice();
           } else {
             this.error = data.error;
           }
@@ -148,6 +165,20 @@ export default {
           this.error = e;
           this.loading = false;
         });
+    },
+    getPrice() {
+      this.$http.get("http://localhost:3000/api/coin/"+this.trade.coin, {
+                headers: {'Authorization': 'Bearer ' + localStorage.getItem('access_token')}
+              }).then((response) => {
+        this.trade.price = response.data.data.price;
+      });
+    },
+    getWallet() {
+      this.$http.get("http://localhost:3000/api/wallet/"+this.trade.coin, {
+                headers: {'Authorization': 'Bearer ' + localStorage.getItem('access_token')}
+              }).then((response) => {
+        this.trade.wallet = response.data.data.quantity;
+      });
     },
     transactionClick() {
       if(!event.target.classList.contains('active')) {
@@ -163,13 +194,33 @@ export default {
     },
     updateCost() {
       let cost = (this.trade.amount * 0.01) * this.user.walletBalance;
-      this.trade.cost = new Intl.NumberFormat("de-DE").format(cost);
+      this.trade.coinsQnty =  cost / this.trade.price;
+      if (!this.trade.byQnty) {
+        this.trade.cost = new Intl.NumberFormat("de-DE").format(cost);
+      } else {
+        this.trade.cost = this.trade.coinsQnty
+      }
+    },
+    buyMode() {
+      this.trade.byQnty = !this.trade.byQnty;
+      this.updateCost();
+    },
+    buy() {
+      this.$http("http://localhost:3000/api/buy", {
+                  method: 'POST',
+                  headers: {
+                    'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                    'Content-Type': 'application/json'
+                  },
+                  data: {symbol: this.trade.coin, quantity: this.trade.coinsQnty }
+                }).then((response) => {
+                    console.log(response);
+            });
     }
   },
   mounted() {
     this.getCoinData();
-
-    setInterval(this.getCoinData, 5 * 60 * 1000);
+      setInterval(this.getCoinData, 5 * 60 * 1000);
   },
 };
 </script>
