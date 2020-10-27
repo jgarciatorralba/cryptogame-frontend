@@ -30,13 +30,20 @@
                     <div class="row justify-content-center mt-4">
                         <div class="col-2">
                             <label class="d-block">Name</label>
-                            <input type="text" class="form-control" :value="user.name">
+                            <input type="text" class="form-control" :value="user.name" name="name">
                         </div>
                     </div>
                     <div class="row justify-content-center mt-4">
                         <div class="col-2">
                             <label class="d-block">Email</label>
-                            <input type="text" class="form-control" :value="user.email">
+                            <input type="text" class="form-control" :value="user.email" name="email">
+                        </div>
+                    </div>
+                    <div class="row justify-content-center mt-4">
+                        <div class="col-2">
+                            <label class="d-block">Password</label>
+                            <input type="password" class="form-control" name="password">
+                            <small class="badge badge-danger">Fill it to change your password</small>
                         </div>
                     </div>
                     <div class="row justify-content-center">
