@@ -86,3 +86,22 @@
     background-color: rgb(30, 34, 45);
   }
 }
+.success-message {
+  background-color: rgb(30, 34, 45);
+  padding: 20px 30px;
+  text-align: center;
+  span {
+    padding: 12px 20px;
+    background-color: green;
+    color: #ffffff;
+  }
+}
+.fadeout {
+    opacity: 0;
+    overflow: hidden;
+    transition: ease-in-out 200ms;
+}
+.fadein {
+  opacity: 100;
+  transition: ease-in-out 200ms;
+}
