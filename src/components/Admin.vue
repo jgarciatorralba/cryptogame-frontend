@@ -134,7 +134,7 @@ export default {
   },
   methods: {
     requestData() {
-      this.$http.get(coinsTableUrl).then((response) => {
+      this.$http.get(coinsTableUrl + 1 + "&" + 40).then((response) => {
         this.coins = response;
         this.loading = false;
       });
@@ -164,7 +164,7 @@ export default {
       let pair = this.pair;
       let name = this.name;
 
-      // console.log([symbol, pair, name]);
+      console.log(localStorage.getItem("access_token"));
       this.$http({
         method: "post",
         url: coinUrl,
