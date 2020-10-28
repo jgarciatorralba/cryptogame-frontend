@@ -42,8 +42,8 @@
               <div v-if="!user" class="details-transaction">
                 <div class="coin-transaction mb-5">
                   <div>
-                    <span class="tag tag-buy active">BUY</span>
-                    <span class="tag tag-sell">SELL</span>
+                    <span class="tag tag-buy active" v-on:click="changeTradeType">BUY</span>
+                    <span class="tag tag-sell" v-on:click="changeTradeType">SELL</span>
                   </div>
                   <div class="details-transaction">
                     <p>You must log in to BUY or SELL some cryptocurrency.</p>
@@ -92,13 +92,13 @@
                   </div>
                   <div>
                     <label class="custom-label">Amount:</label>
-                    <input type="number" :value=trade.cost disabled>
+                    <input type="number" :value=trade.cost disabled><span> {{trade.coin.toUpperCase()}} Coins</span>
                   </div>
                   <div>
                     <label class="custom-label">% :</label>
-                    <input v-model="trade.amount" type="range" class="sell-range" min="0" max="100" step="1">
+                    <input v-model="trade.amount" type="range" class="sell-range" min="0" max="100" step="1" v-on:input="updateCost"><span> {{ trade.amount }}%</span>
                   </div>
-                  <button class="btn btn-success">SELL</button>
+                  <button class="btn btn-success" v-on:click="sell">SELL</button>
                 </div>
               </div>
             </div>
@@ -184,7 +184,7 @@ export default {
     transactionClick() {
       if (!event.target.classList.contains("active")) {
         let operation = event.target.innerText.toLowerCase();
-        this.trade.operation = operation;
+        this.trade.type = operation;
         document.querySelectorAll(".details-transaction").forEach((div) => {
           div.classList.add("d-none");
         });
@@ -194,13 +194,18 @@ export default {
       }
     },
     updateCost() {
-      let cost = (this.trade.amount * 0.01) * this.user.walletBalance;
-      this.trade.coinsQnty =  cost / this.trade.price;
-      if (!this.trade.byQnty) {
-        this.trade.cost = new Intl.NumberFormat("de-DE").format(cost);
+      if (this.trade.type == "buy") {
+        let cost = (this.trade.amount * 0.01) * this.user.walletBalance;
+        this.trade.coinsQnty =  cost / this.trade.price;
+        if (!this.trade.byQnty) {
+          this.trade.cost = new Intl.NumberFormat("de-DE").format(cost);
+        } else {
+          this.trade.cost = this.trade.coinsQnty;
+        }
       } else {
-        this.trade.cost = this.trade.coinsQnty
-      }
+          this.trade.coinsQnty = (this.trade.amount * 0.01) * this.trade.wallet;
+          this.trade.cost = this.trade.coinsQnty;
+        }
     },
     buyMode() {
       this.trade.byQnty = !this.trade.byQnty;
@@ -208,6 +213,7 @@ export default {
     },
     buy() {
       if (this.trade.coinsQnty > 0) {
+        this.hideTradeForm();
         this.$http(buyUrl, {
                     method: 'POST',
                     headers: {
@@ -216,12 +222,43 @@ export default {
                     },
                     data: {symbol: this.trade.coin, quantity: this.trade.coinsQnty }
                   }).then((response) => {
-                      console.log(response);
+                      this.showTradeResponse(response);
                   });
       }
     },
     sell() {
-      
+      if (this.trade.coinsQnty > 0) {
+        this.hideTradeForm();
+        this.$http(sellUrl, {
+                    method: 'POST',
+                    headers: {
+                      'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                      'Content-Type': 'application/json'
+                    },
+                    data: {symbol: this.trade.coin, quantity: this.trade.coinsQnty }
+                  }).then((response) => {
+                      this.showTradeResponse(response);
+                  });
+      }
+    },
+    hideTradeForm() {
+      let transactionDiv = document.querySelector('.coin-transaction');
+      let messageDiv = document.querySelector('#message');
+      transactionDiv.addEventListener('transitionend',function(e){
+        e.target.innerText = "Processing request..."
+      });
+    },
+    showTradeResponse(res) {
+      let transactionDiv = document.querySelector('.coin-transaction');
+      transactionDiv.addEventListener('transitionend',() => {
+        if(res.data.error) {
+          transactionDiv.innerHTML = "<div class='bg-danger text-light p-2 text-center rounded'><span>"+res.data.error+"</span><div>"
+        } else {
+          transactionDiv.innerHTML = "<div class='bg-success text-light p-2 text-center rounded'><span>"+res.data.data+"</span><div>"
+        }
+        transactionDiv.classList.add('fadein');
+      })
+      transactionDiv.classList.add('fadeout');
     }
   },
   mounted() {
