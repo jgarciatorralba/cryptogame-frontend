@@ -16,6 +16,7 @@ export const sellUrl = apiDomain + "user/sell";
 export const rankingUrl = apiDomain + "api/ranking";
 export const coinsTableUrl = apiDomain + "api/coins";
 export const coinPriceUrl = apiDomain + "api/coin";
+export const userUpdateUrl = apiDomain + "user";
 
 // External API coingecko
 export let coinDetailsUrl = function(coinId) {
