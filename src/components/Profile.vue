@@ -1,14 +1,14 @@
 <template>
     <div>
         <app-header></app-header>
-        <div class="container-fluid">
+        <div v-if="loaded" class="container-fluid">
             <div class="row justify-content-center">
                 <div class="col-10">
                     <h3 class="mb-5 col-12 text-center">User Profile</h3>
                     <div class="row justify-content-center">
                         <div class="col-2 text-right">
                             <label for="avatar">
-                                <img v-if="user.avatar" :src="user.avatar">
+                                <img v-if="user.avatar" :src="'http://'+user.avatar" class="avatar align-self-end rounded-circle">
                                 <img v-else src="https://www.worldfuturecouncil.org/wp-content/uploads/2020/02/dummy-profile-pic-300x300-1.png" class="avatar align-self-end rounded-circle">
                                 <input name="avatar" id="avatar" type="file" accept="image/jpeg/png" class="d-none">
                             </label>
@@ -16,12 +16,12 @@
                         <div class="col-3">
                             <p class="h4">{{user.name}}</p>
                             <div class="row">
-                                <div class="col-4">
+                                <div class="col-5">
                                     <small class="text-muted d-block">Ranking: #{{ user.ranking }}</small>
-                                    <small class="text-muted d-block">Wallet: ${{ new Intl.NumberFormat("de-DE").format(user.walletTotal) }}</small>
+                                    <small class="text-muted d-block">Wallet: ${{ new Intl.NumberFormat("de-DE").format(user.estimated) }}</small>
                                 </div>
                                 <div class="col-6">
-                                    <small class="text-muted d-block">Balance: ${{ new Intl.NumberFormat("de-DE").format(user.walletBalance) }}</small>
+                                    <small class="text-muted d-block">Balance: ${{ new Intl.NumberFormat("de-DE").format(user.balance) }}</small>
                                     <small class="text-muted d-block">Most bought: {{ user.mostBought }}</small>
                                 </div>
                             </div>
@@ -70,12 +70,13 @@
 <script>
 import AppHeader from "../components/partials/Header.vue";
 import Sidebar from "../components/partials/Sidebar.vue";
-import { userUpdateUrl } from "../config/config.js";
+import { userUpdateUrl, getHeader } from "../config/config.js";
 
 export default {
     data() {
         return {
-            user: JSON.parse(localStorage.getItem("user"))
+            user: null,
+            loaded: false
         }
     },
 	components: {
@@ -103,11 +104,19 @@ export default {
                     'Content-Type': 'multipart/form-data'
                 }
             }).then((response) => {
-                console.log(response);
+                window.location.reload();
             });
-        }
+        },
+        requestData() {
+			this.$http.get(userUpdateUrl, { headers: getHeader() }).then((response) => {
+				this.user = response.data.data;
+                this.user.mostBought = 'Bitcoin';
+                this.loaded = true;
+			});
+		}
     },
     mounted() {
+        this.requestData();
     }
 };
 </script>
