@@ -115,7 +115,7 @@ import AppHeader from "./partials/Header.vue";
 import Chart from "./partials/Chart";
 import Errors from "./partials/Errors.vue";
 import Sidebar from "../components/partials/Sidebar.vue";
-import { coinDetailsUrl } from "../config/config.js";
+import { coinDetailsUrl, buyUrl, sellUrl, walletUrl, coinPriceUrl } from "../config/config.js";
 
 export default {
   props: ["coinId"],
@@ -170,14 +170,12 @@ export default {
         });
     },
     getPrice() {
-      this.$http.get("http://localhost:3000/api/coin/"+this.trade.coin, {
-                headers: {'Authorization': 'Bearer ' + localStorage.getItem('access_token')}
-              }).then((response) => {
+      this.$http.get(`${coinPriceUrl}/${this.trade.coin}`).then((response) => {
         this.trade.price = response.data.data.price;
       });
     },
     getWallet() {
-      this.$http.get("http://localhost:3000/api/wallet/"+this.trade.coin, {
+      this.$http.get(`${walletUrl}/${this.trade.coin}`, {
                 headers: {'Authorization': 'Bearer ' + localStorage.getItem('access_token')}
               }).then((response) => {
         this.trade.wallet = response.data.data.quantity;
@@ -221,6 +219,9 @@ export default {
                       console.log(response);
                   });
       }
+    },
+    sell() {
+      
     }
   },
   mounted() {

@@ -16,7 +16,8 @@
             Loading cryptocoins data...
           </p>
           <div v-else>
-            <coins v-bind:coins="coins" v-on:updated="replaceTable()"></coins>
+            <p v-if="coins.error" class="bg-danger rounded text-light mt-4 text-center">{{coins.error}}</p>
+            <coins v-else v-bind:coins="coins.data" v-on:updated="replaceTable()"></coins>
           </div>
         </div>
       </div>

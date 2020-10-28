@@ -10,11 +10,12 @@ export const registerUrl = apiDomain + "register";
 export let transactionsUrl = function(page, results) {
   return apiDomain + "api/trades/" + page + "&" + results;
 };
-export const walletUrl = apiDomain + "api/wallet";
-export const buyUrl = apiDomain + "api/buy";
-export const sellUrl = apiDomain + "api/sell";
+export const walletUrl = apiDomain + "user/wallet";
+export const buyUrl = apiDomain + "user/buy";
+export const sellUrl = apiDomain + "user/sell";
 export const rankingUrl = apiDomain + "api/ranking";
 export const coinsTableUrl = apiDomain + "api/coins";
+export const coinPriceUrl = apiDomain + "api/coin";
 
 // External API coingecko
 export let coinDetailsUrl = function(coinId) {
