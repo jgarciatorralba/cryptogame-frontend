@@ -8,7 +8,7 @@
                     <div class="row justify-content-center">
                         <div class="col-2 text-right">
                             <label for="avatar">
-                                <img v-if="user.avatar" :src="'http://'+user.avatar" class="avatar align-self-end rounded-circle">
+                                <img v-if="user.avatar" :src="user.avatar" class="avatar align-self-end rounded-circle">
                                 <img v-else src="https://www.worldfuturecouncil.org/wp-content/uploads/2020/02/dummy-profile-pic-300x300-1.png" class="avatar align-self-end rounded-circle">
                                 <input name="avatar" id="avatar" type="file" accept="image/jpeg/png" class="d-none">
                             </label>
