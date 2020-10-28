@@ -20,7 +20,7 @@
               <img
                 v-if="player.avatar"
                 class="rounded-circle col-2"
-                :src="'http://'+player.avatar"
+                :src="player.avatar"
               />
               <img
                 v-else
