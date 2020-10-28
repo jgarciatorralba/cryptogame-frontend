@@ -42,8 +42,8 @@
               <div v-if="!user" class="details-transaction">
                 <div class="coin-transaction mb-5">
                   <div>
-                    <span class="tag tag-buy active" v-on:click="changeTradeType">BUY</span>
-                    <span class="tag tag-sell" v-on:click="changeTradeType">SELL</span>
+                    <span class="tag tag-buy active">BUY</span>
+                    <span class="tag tag-sell">SELL</span>
                   </div>
                   <div class="details-transaction">
                     <p>You must log in to BUY or SELL some cryptocurrency.</p>
@@ -115,7 +115,7 @@ import AppHeader from "./partials/Header.vue";
 import Chart from "./partials/Chart";
 import Errors from "./partials/Errors.vue";
 import Sidebar from "../components/partials/Sidebar.vue";
-import { coinDetailsUrl, buyUrl, sellUrl, walletUrl, coinPriceUrl } from "../config/config.js";
+import { coinDetailsUrl, buyUrl, sellUrl, walletUrl, coinPriceUrl, userUpdateUrl, getHeader } from "../config/config.js";
 
 export default {
   props: ["coinId"],
@@ -124,7 +124,7 @@ export default {
       coin: null,
       error: null,
       success: null,
-      user: JSON.parse(localStorage.getItem("user")),
+      user: null,
       details: {
         id: this.coinId,
         currency: "usd",
@@ -169,6 +169,12 @@ export default {
           this.loading = false;
         });
     },
+    getUserData() {
+      this.$http.get(userUpdateUrl, { headers: getHeader() }).then((response) => {
+				this.user = response.data.data;
+				this.user.mostBought = 'Bitcoin';
+			});
+    },
     getPrice() {
       this.$http.get(`${coinPriceUrl}/${this.trade.coin}`).then((response) => {
         this.trade.price = response.data.data.price;
@@ -195,7 +201,7 @@ export default {
     },
     updateCost() {
       if (this.trade.type == "buy") {
-        let cost = (this.trade.amount * 0.01) * this.user.walletBalance;
+        let cost = (this.trade.amount * 0.01) * this.user.balance;
         this.trade.coinsQnty =  cost / this.trade.price;
         if (!this.trade.byQnty) {
           this.trade.cost = new Intl.NumberFormat("de-DE").format(cost);
@@ -222,7 +228,9 @@ export default {
                     },
                     data: {symbol: this.trade.coin, quantity: this.trade.coinsQnty }
                   }).then((response) => {
-                      this.showTradeResponse(response);
+                    this.showTradeResponse(response);
+                  }).catch(error => {
+                    this.showTradeResponse(error.response);
                   });
       }
     },
@@ -263,7 +271,8 @@ export default {
   },
   mounted() {
     this.getCoinData();
-      setInterval(this.getCoinData, 5 * 60 * 1000);
+    this.getUserData();
+    setInterval(this.getCoinData, 5 * 60 * 1000);
   },
 };
 </script>
