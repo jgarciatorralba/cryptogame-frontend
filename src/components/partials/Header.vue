@@ -27,6 +27,9 @@
       </div>
       <div class="col-4">
         <ul class="my-auto text-right" v-if="user">
+          <li class="header-link" v-if="user.role == 1">
+            <router-link :to="'/admin'">Admin</router-link>
+          </li>
           <li class="header-link">
             <router-link :to="'/profile'">Profile</router-link>
           </li>
