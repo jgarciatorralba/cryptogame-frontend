@@ -20,7 +20,7 @@
               <img
                 v-if="player.avatar"
                 class="rounded-circle col-2"
-                :src="player.avatar"
+                :src="'http://'+player.avatar"
               />
               <img
                 v-else
@@ -72,13 +72,14 @@
 <script>
 import AppHeader from "../components/partials/Header.vue";
 import Sidebar from "../components/partials/Sidebar.vue";
-import { rankingUrl, getHeader } from "../config/config.js";
+import { rankingUrl, getHeader, imgPathUrl } from "../config/config.js";
 
 export default {
   data() {
     return {
       ranking: null,
       loading: true,
+      imgPathUrl : imgPathUrl
     };
   },
   components: {
