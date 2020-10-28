@@ -91,10 +91,8 @@ export default {
             let email = document.querySelector('input[name="email"]').value;
             let password = document.querySelector('input[name="password"]').value;
 
-            password = password == "" ? null : password;
-
             formData.append("avatar", imagefile.files[0]);
-            formData.append("name", name);
+            if(password != "") formData.append("name", name);
             formData.append("email", email);
             formData.append("password", password);
 
