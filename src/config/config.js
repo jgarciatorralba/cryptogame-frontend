@@ -14,7 +14,7 @@ export const walletUrl = apiDomain + "user/wallet";
 export const buyUrl = apiDomain + "user/buy";
 export const sellUrl = apiDomain + "user/sell";
 export const rankingUrl = apiDomain + "api/ranking";
-export const coinsTableUrl = apiDomain + "api/coins/";
+export const coinsTableUrl = apiDomain + "api/coins/"; // + page&limit (pagination)
 export const coinPriceUrl = apiDomain + "api/coin";
 export const userUpdateUrl = apiDomain + "user";
 
