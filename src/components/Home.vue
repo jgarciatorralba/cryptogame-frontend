@@ -16,8 +16,17 @@
             Loading cryptocoins data...
           </p>
           <div v-else>
-            <p v-if="coins.error" class="bg-danger rounded text-light mt-4 text-center">{{coins.error}}</p>
-            <coins v-else v-bind:coins="coins.data" v-on:updated="replaceTable()"></coins>
+            <p
+              v-if="coins.error"
+              class="bg-danger rounded text-light mt-4 text-center"
+            >
+              {{ coins.error }}
+            </p>
+            <coins
+              v-else
+              v-bind:coins="coins.data"
+              v-on:updated="replaceTable()"
+            ></coins>
           </div>
         </div>
       </div>
@@ -50,7 +59,7 @@ export default {
   },
   methods: {
     requestData() {
-      this.$http.get(coinsTableUrl).then((response) => {
+      this.$http.get(coinsTableUrl + 1 + "&" + 20).then((response) => {
         this.coins = response;
         this.loading = false;
       });
