@@ -12,7 +12,7 @@ This repository contains only the frontend section, being the backend section st
 
 It contains the files and folders detailed below:
 
-- **_project_documentation_**: a folder with all the required documentation in the project in PDF format, plus a subfolder with a _**Postman**_ collection of all the API calls to the backend.
+- **_project_documentation_**: a folder with all the required documentation in the project in PDF format, plus a _**Postman**_ collection with all the API calls to the backend service.
 
 - **_src_**: it is the root folder of the project, divided into sub-folders which are structured in: **_assets_**, **_components_** and **_config_**. Additionally, in here it is the main entry point to the project (**_main.js_**), which contains all the routes used and the route protection middleware, and **_App.vue_** with the backbone of the SPA design.
 
