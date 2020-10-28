@@ -208,7 +208,7 @@ export default {
     },
     buy() {
       if (this.trade.coinsQnty > 0) {
-        this.$http("http://localhost:3000/api/buy", {
+        this.$http(buyUrl, {
                     method: 'POST',
                     headers: {
                       'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
