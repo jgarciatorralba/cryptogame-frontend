@@ -12,6 +12,7 @@ import Register from "./components/auth/Register.vue";
 import Reset from "./components/auth/Reset.vue";
 import Details from "./components/Details.vue";
 import NotFound from "./components/NotFound.vue";
+import Admin from "./components/Admin.vue";
 
 import Axios from "axios";
 Vue.prototype.$http = Axios;
@@ -94,17 +95,17 @@ const routes = [
     path: "*",
     name: "NotFound",
     component: NotFound
-  }
+  },
   // Admin page
-  // {
-  //   path: "/admin",
-  //   name: "Admin",
-  //   component: Admin,
-  //   meta: {
-  //     requiresAuth: true,
-  //     is_admin: true
-  //   }
-  // }
+  {
+    path: "/admin",
+    name: "Admin",
+    component: Admin,
+    meta: {
+      requiresAuth: true,
+      is_admin: true
+    }
+  }
 ];
 
 const router = new VueRouter({ routes: routes, mode: "history" });
@@ -122,7 +123,10 @@ router.beforeEach((to, from, next) => {
         if (user.role == 1) {
           next();
         } else {
-          next({ name: "Home" });
+          next({
+            name: "Home",
+            params: { error: "You have no authorization to see that resource" }
+          });
         }
       } else {
         next();
