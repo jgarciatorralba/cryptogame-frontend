@@ -1,10 +1,10 @@
 <template>
   <div class="container-fluid headernav mb-5">
     <nav class="row justify-content-around">
-      <div class="col-1 my-auto">
+      <div class="col-2 my-auto">
         <a>
           <b-icon icon="bar-chart-line"></b-icon>
-          LOGO
+          <span>Cryptogame</span>
         </a>
       </div>
       <div class="col-3 my-auto">
@@ -19,13 +19,7 @@
           </li>
         </ul>
       </div>
-      <div class="col-3 my-auto">
-        <form>
-          <input type="text" />
-          <button class="btn btn-warning" type="submit">Search</button>
-        </form>
-      </div>
-      <div class="col-4">
+      <div class="col-5">
         <ul class="my-auto text-right" v-if="user">
           <li class="header-link" v-if="user.role == 1">
             <router-link :to="'/admin'">Admin</router-link>
