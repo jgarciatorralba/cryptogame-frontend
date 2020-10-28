@@ -1,0 +1,526 @@
+{
+	"info": {
+		"_postman_id": "6969755e-9c4d-467c-8e6b-1356378ec8df",
+		"name": "Develop your project with Vue",
+		"description": "Postman collection with all the requests made to the API implemented as a backend service",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"jorge@mail.com\",\n    \"password\": \"123456\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"login"
+					]
+				},
+				"description": "http://localhost:3000/login"
+			},
+			"response": []
+		},
+		{
+			"name": "Register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Test Name\",\n    \"email\": \"testname@email.com\",\n    \"password\": \"secret\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"register"
+					]
+				},
+				"description": "http://localhost:3000/register"
+			},
+			"response": []
+		},
+		{
+			"name": "coingecko - coin details",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.coingecko.com/api/v3/coins/bitcoin?localization=false",
+					"protocol": "https",
+					"host": [
+						"api",
+						"coingecko",
+						"com"
+					],
+					"path": [
+						"api",
+						"v3",
+						"coins",
+						"bitcoin"
+					],
+					"query": [
+						{
+							"key": "localization",
+							"value": "false"
+						}
+					]
+				},
+				"description": "https://api.coingecko.com/api/v3/coins/bitcoin?localization=false"
+			},
+			"response": []
+		},
+		{
+			"name": "coingecko - coin historical data 24h",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=1",
+					"protocol": "https",
+					"host": [
+						"api",
+						"coingecko",
+						"com"
+					],
+					"path": [
+						"api",
+						"v3",
+						"coins",
+						"bitcoin",
+						"market_chart"
+					],
+					"query": [
+						{
+							"key": "vs_currency",
+							"value": "usd"
+						},
+						{
+							"key": "days",
+							"value": "1"
+						}
+					]
+				},
+				"description": "https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=1"
+			},
+			"response": []
+		},
+		{
+			"name": "admin - remove coin",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6MSwiaWF0IjoxNjAzOTE5NTYyfQ.gS3_gOLhlofxGJHEFojBBhA3B_AB8PivWcbyuG9bCpM",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/admin/coin/29",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"admin",
+						"coin",
+						"29"
+					]
+				},
+				"description": "http://localhost:3000/admin/coin/52"
+			},
+			"response": []
+		},
+		{
+			"name": "admin - add new coin",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6MSwiaWF0IjoxNjAzOTE5NTYyfQ.gS3_gOLhlofxGJHEFojBBhA3B_AB8PivWcbyuG9bCpM",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"symbol\": \"ZIL\",\n    \"pair\": \"ZILUSDT\",\n    \"name\": \"Zilliqa\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/admin/coin",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"admin",
+						"coin"
+					]
+				},
+				"description": "http://localhost:3000/admin/coin"
+			},
+			"response": []
+		},
+		{
+			"name": "public - get all coins (paginated)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/coins/1&20",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"coins",
+						"1&20"
+					]
+				},
+				"description": "http://localhost:3000/api/coins/1&20"
+			},
+			"response": []
+		},
+		{
+			"name": "public - get coin price",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/coin/BTC",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"coin",
+						"BTC"
+					]
+				},
+				"description": "http://localhost:3000/api/coin/BTC"
+			},
+			"response": []
+		},
+		{
+			"name": "user - get user data",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6MSwiaWF0IjoxNjAzOTE5NTYyfQ.gS3_gOLhlofxGJHEFojBBhA3B_AB8PivWcbyuG9bCpM",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/user",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"user"
+					]
+				},
+				"description": "http://localhost:3000/user"
+			},
+			"response": []
+		},
+		{
+			"name": "user - get wallet",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6MSwiaWF0IjoxNjAzOTE5NTYyfQ.gS3_gOLhlofxGJHEFojBBhA3B_AB8PivWcbyuG9bCpM",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/user/wallet/BTC",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"user",
+						"wallet",
+						"BTC"
+					]
+				},
+				"description": "http://localhost:3000/user/wallet"
+			},
+			"response": []
+		},
+		{
+			"name": "user - buy coin",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6MSwiaWF0IjoxNjAzOTE5NTYyfQ.gS3_gOLhlofxGJHEFojBBhA3B_AB8PivWcbyuG9bCpM",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"symbol\": \"BTC\",\n    \"quantity\": \"0.05\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/user/buy",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"user",
+						"buy"
+					]
+				},
+				"description": "http://localhost:3000/user/buy"
+			},
+			"response": []
+		},
+		{
+			"name": "user - sell coin",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6MSwiaWF0IjoxNjAzOTE5NTYyfQ.gS3_gOLhlofxGJHEFojBBhA3B_AB8PivWcbyuG9bCpM",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"symbol\": \"BTC\",\n    \"quantity\": \"0.05\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/user/sell",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"user",
+						"sell"
+					]
+				},
+				"description": "http://localhost:3000/user/sell"
+			},
+			"response": []
+		},
+		{
+			"name": "user - update user data",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6MSwiaWF0IjoxNjAzOTE5NTYyfQ.gS3_gOLhlofxGJHEFojBBhA3B_AB8PivWcbyuG9bCpM",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "administrator",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/user",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"user"
+					]
+				},
+				"description": "http://localhost:3000/user"
+			},
+			"response": []
+		},
+		{
+			"name": "user - get player ranking",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6MSwiaWF0IjoxNjAzOTE5NTYyfQ.gS3_gOLhlofxGJHEFojBBhA3B_AB8PivWcbyuG9bCpM",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/ranking",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"ranking"
+					]
+				},
+				"description": "http://localhost:3000/api/ranking"
+			},
+			"response": []
+		},
+		{
+			"name": "user - get all transactions (paginated)",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6MSwiaWF0IjoxNjAzOTE5NTYyfQ.gS3_gOLhlofxGJHEFojBBhA3B_AB8PivWcbyuG9bCpM",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/trades/1&5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"trades",
+						"1&5"
+					]
+				},
+				"description": "http://localhost:3000/api/trades/page&limit"
+			},
+			"response": []
+		},
+		{
+			"name": "user - get user wallet",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6MSwiaWF0IjoxNjAzOTE5NTYyfQ.gS3_gOLhlofxGJHEFojBBhA3B_AB8PivWcbyuG9bCpM",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/user/wallet",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"user",
+						"wallet"
+					]
+				},
+				"description": "http://localhost:3000/user/wallet"
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
