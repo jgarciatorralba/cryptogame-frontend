@@ -164,7 +164,6 @@ export default {
       let pair = this.pair;
       let name = this.name;
 
-      console.log(localStorage.getItem("access_token"));
       this.$http({
         method: "post",
         url: coinUrl,
