@@ -38,6 +38,8 @@
                 - {{ transaction.date | moment("from") }}
               </div>
             </div>
+            <button v-if="page > 1" class="btn btn-light border mt-3" v-on:click="previousPage">&laquo; Back</button>
+            <button v-if="!end" class="btn btn-light border mt-3" v-on:click="nextPage">Next &raquo;</button>
           </div>
         </div>
       </div>
@@ -64,7 +66,7 @@
 .transaction:hover {
   transform: scale(1.2);
   box-shadow: 1px 2px gray;
-  transition: ease-in-out 350ms;
+  transition: ease-in-out 180ms;
 }
 </style>
 
@@ -78,6 +80,9 @@ export default {
     return {
       transactions: null,
       loading: true,
+      page: 1,
+      end: false,
+      limit: 12
     };
   },
   components: {
@@ -87,7 +92,7 @@ export default {
   methods: {
     requestData() {
       this.$http
-        .get(transactionsUrl(1, 5), {
+        .get(transactionsUrl(1, this.limit), {
           headers: getHeader(),
         })
         .then((response) => {
@@ -95,6 +100,23 @@ export default {
           this.loading = false;
         });
     },
+    nextPage() {
+      this.page++;
+      this.$http
+        .get(transactionsUrl(this.page, this.limit), { headers: getHeader() }).then((response) => {
+          this.transactions = response.data;
+          console.log(response.data.data.trades.length);
+          if(response.data.data.trades.length < this.limit) this.end = true;
+        });
+    },
+    previousPage() {
+      this.page--;
+      this.$http
+        .get(transactionsUrl(this.page, this.limit), { headers: getHeader() }).then((response) => {
+          this.transactions = response.data;
+          if(this.end == true) this.end = false;
+        });
+    }
   },
   mounted() {
     this.requestData();
