@@ -1,6 +1,6 @@
 <template>
   <div>
-    <table class="coins-table mx-auto">
+    <table class="coins-table">
       <thead>
         <tr>
           <th>#</th>
@@ -23,7 +23,7 @@
           <td>{{ index + 1 }}</td>
           <td>
             <img :src="coin.image" class="coin-icon" />
-            {{ coin.name }}
+            <span>{{ coin.name }}</span>
           </td>
           <td>{{ coin.symbol }}</td>
           <td>${{ new Intl.NumberFormat("de-DE").format(coin.price) }} USD</td>
