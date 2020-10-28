@@ -3,14 +3,14 @@
         <app-header></app-header>
         <div class="container-fluid">
             <div class="row justify-content-center">
-                <form class="col-10">
+                <div class="col-10">
                     <h3 class="mb-5 col-12 text-center">User Profile</h3>
                     <div class="row justify-content-center">
                         <div class="col-2 text-right">
                             <label for="avatar">
                                 <img v-if="user.avatar" :src="user.avatar">
                                 <img v-else src="https://www.worldfuturecouncil.org/wp-content/uploads/2020/02/dummy-profile-pic-300x300-1.png" class="avatar align-self-end rounded-circle">
-                                <input name="avatar" id="avatar" type="file" accept="image/jpeg" class="d-none">
+                                <input name="avatar" id="avatar" type="file" accept="image/jpeg/png" class="d-none">
                             </label>
                         </div>
                         <div class="col-3">
@@ -48,10 +48,10 @@
                     </div>
                     <div class="row justify-content-center">
                         <div class="col-2 mt-5">
-                            <button class="btn-lg btn-primary float-right">Save changes</button>
+                            <button class="btn-lg btn-primary float-right" v-on:click="update">Save changes</button>
                         </div>
                     </div>
-                </form>
+                </div>
             </div>
         </div>
     </div>
@@ -70,7 +70,7 @@
 <script>
 import AppHeader from "../components/partials/Header.vue";
 import Sidebar from "../components/partials/Sidebar.vue";
-console.log(JSON.parse(localStorage.getItem("user")));
+import { userUpdateUrl } from "../config/config.js";
 
 export default {
     data() {
@@ -82,10 +82,32 @@ export default {
 		Sidebar, AppHeader
     },
     methods: {
-        requestData() {}
+        update() {
+            var formData = new FormData();
+
+            let imagefile = document.querySelector('#avatar');
+            let name = document.querySelector('input[name="name"]').value;
+            let email = document.querySelector('input[name="email"]').value;
+            let password = document.querySelector('input[name="password"]').value;
+
+            password = password == "" ? null : password;
+
+            formData.append("avatar", imagefile.files[0]);
+            formData.append("name", name);
+            formData.append("email", email);
+            formData.append("password", password);
+
+            this.$http.patch(userUpdateUrl, formData, {
+                headers: {
+                    'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                    'Content-Type': 'multipart/form-data'
+                }
+            }).then((response) => {
+                console.log(response);
+            });
+        }
     },
     mounted() {
-        this.requestData();
     }
 };
 </script>
