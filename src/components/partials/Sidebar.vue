@@ -1,7 +1,7 @@
 <template>
-	<div class="col-2 sidebar">
+	<div v-if="loaded" class="col-2 sidebar">
 		<div>
-			<img v-if="user.avatar" class="img-thumbnail mb-3" :src=user.avatar>
+			<img v-if="user.avatar" class="img-thumbnail mb-3" :src="'http://'+user.avatar">
 			<img v-else class="img-thumbnail mb-3" src="https://www.worldfuturecouncil.org/wp-content/uploads/2020/02/dummy-profile-pic-300x300-1.png"/>
 		</div>
 		<div>
@@ -15,14 +15,14 @@
 						<b-icon icon="wallet2" class="ml-2"></b-icon>
 						<small class="badge">Wallet</small>
 					</div>
-					<div class="d-block ml-3">${{ new Intl.NumberFormat("de-DE").format(user.walletTotal) }}</div>
+					<div class="d-block ml-3">${{ new Intl.NumberFormat("de-DE").format(user.estimated) }}</div>
 				</li>
 				<li class="border rounded mb-2">
 					<div class="rounded-top badge-primary p-1 mb-1">
 						<b-icon icon="cash-stack" class="ml-2"></b-icon>
 						<small class="badge">Balance</small>
 					</div>
-					<div class="d-block ml-3">${{ new Intl.NumberFormat("de-DE").format(user.walletBalance) }}</div>
+					<div class="d-block ml-3">${{ new Intl.NumberFormat("de-DE").format(user.balance) }}</div>
 				</li>
 				<li class="border rounded mb-2">
 					<div class="rounded-top badge-primary p-1 mb-1">
@@ -58,11 +58,26 @@
 </style>
 
 <script>
+import { userUpdateUrl, getHeader } from '../../config/config';
+
 export default {
 	data () {
 		return {
-			user: JSON.parse(localStorage.getItem("user"))
+			user: null,
+			loaded: null
 		}
+	},
+	methods: {
+		requestData() {
+			this.$http.get(userUpdateUrl, { headers: getHeader() }).then((response) => {
+				this.user = response.data.data;
+				this.user.mostBought = 'Bitcoin';
+				this.loaded = true
+			});
+		}
+    },
+	mounted() {
+		this.requestData();
 	}
 }
 </script>
