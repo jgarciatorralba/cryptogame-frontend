@@ -79,7 +79,6 @@ export default {
     return {
       ranking: null,
       loading: true,
-      imgPathUrl : imgPathUrl
     };
   },
   components: {
