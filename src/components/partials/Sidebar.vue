@@ -1,7 +1,7 @@
 <template>
 	<div v-if="loaded" class="col-2 sidebar">
 		<div class="d-flex justify-content-center">
-			<img v-if="user.avatar" class="img-thumbnail mb-3" :src="'http://'+user.avatar">
+			<img v-if="user.avatar" class="img-thumbnail mb-3" :src="user.avatar">
 			<img v-else class="img-thumbnail mb-3" src="https://www.worldfuturecouncil.org/wp-content/uploads/2020/02/dummy-profile-pic-300x300-1.png"/>
 		</div>
 		<div>
