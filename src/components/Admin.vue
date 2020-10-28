@@ -141,11 +141,11 @@ export default {
     },
     refreshTable() {
       this.requestData();
-      $("coins-admin").remove();
-      let el = $(
-        '<coins-admin v-else v-bind:coins="coins.data" v-on:updated="refreshTable()"></coins-admin>'
-      );
-      $(".coins-cont").append(el);
+      // $("coins-admin").remove();
+      // let el = $(
+      //   '<coins-admin v-else v-bind:coins="coins.data" v-on:updated="refreshTable()"></coins-admin>'
+      // );
+      // $(".coins-cont").append(el);
     },
     showModal() {
       this.is_modal_visible = true;

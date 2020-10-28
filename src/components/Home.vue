@@ -66,11 +66,11 @@ export default {
     },
     replaceTable() {
       this.requestData();
-      $("coins").remove();
-      let el = $(
-        '<coins v-bind:coins="coins" v-on:updated="replaceTable()"></coins>'
-      );
-      $(".container-fluid").prepend(el);
+      // $("coins").remove();
+      // let el = $(
+      //   '<coins v-bind:coins="coins" v-on:updated="replaceTable()"></coins>'
+      // );
+      // $(".container-fluid").prepend(el);
     },
     resetMsg() {
       this.success = null;
