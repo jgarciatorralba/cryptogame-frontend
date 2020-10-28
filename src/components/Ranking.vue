@@ -72,7 +72,7 @@
 <script>
 import AppHeader from "../components/partials/Header.vue";
 import Sidebar from "../components/partials/Sidebar.vue";
-import { rankingUrl, getHeader, imgPathUrl } from "../config/config.js";
+import { rankingUrl, getHeader } from "../config/config.js";
 
 export default {
   data() {
