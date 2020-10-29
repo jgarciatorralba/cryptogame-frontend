@@ -84,27 +84,20 @@ export default {
       let error = this.validateForm(e);
       if (error == null) {
 
-        fetch("http://localhost:3000/password/reset", {
+        this.$http("http://localhost:3000/password/reset", {
           method: "POST",
-          body: JSON.stringify({ password: this.password }),
           headers: {
-            Authorization: 'Bearer' + this.token,
-            "Content-Type": "application/json",
+            Authorization: 'Bearer ' + this.token,
           },
+          data: { password: this.password },
         })
-          .then((response) => response.json())
           .then((data) => {
-            console.log(data);
-            if (data.error !== null) {
-              this.error = data.error;
-            } else {
-              this.$router.push({
-                name: "Login",
-                params: {
-                  success: data.data,
-                },
-              });
-            }
+            this.$router.push({
+              name: "Login",
+              params: {
+                success: data.data.data,
+              },
+            });
           })
           .catch((e) => {
             this.error = e.message;
@@ -114,9 +107,6 @@ export default {
       }
     },
   },
-  mounted(){
-    console.log(this.token)
-  }
 };
 </script>
 
