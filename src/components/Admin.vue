@@ -8,7 +8,7 @@
             List of coins
             <button
               id="btn-addCoin"
-              class="btn btn-lg btn-secondary rounded-circle btn-delete ml-3"
+              class="btn btn-lg btn-secondary rounded-circle btn-add ml-3"
               data-toggle="modal"
               data-target="#modalNewCoin"
               type="button"
@@ -27,11 +27,19 @@
             >
               {{ coins.error }}
             </p>
-            <coins-admin
-              v-else
-              v-bind:coins="coins.data"
-              v-on:updated="refreshTable()"
-            ></coins-admin>
+
+            <div v-else>
+              <errors
+                v-bind:error="error"
+                v-bind:success="success"
+                v-on:dismissed="resetMsg()"
+              ></errors>
+
+              <coins-admin
+                v-bind:coins="coins.data"
+                v-on:updated="requestData()"
+              ></coins-admin>
+            </div>
           </div>
         </div>
       </div>
@@ -113,6 +121,7 @@
 <script>
 import AppHeader from "./partials/Header.vue";
 import CoinsAdmin from "./partials/CoinsAdmin.vue";
+import Errors from "./partials/Errors.vue";
 import { coinsTableUrl, coinUrl, getHeader } from "../config/config.js";
 
 export default {
@@ -131,6 +140,7 @@ export default {
   components: {
     AppHeader,
     CoinsAdmin,
+    Errors,
   },
   methods: {
     requestData() {
@@ -138,14 +148,6 @@ export default {
         this.coins = response;
         this.loading = false;
       });
-    },
-    refreshTable() {
-      this.requestData();
-      // $("coins-admin").remove();
-      // let el = $(
-      //   '<coins-admin v-else v-bind:coins="coins.data" v-on:updated="refreshTable()"></coins-admin>'
-      // );
-      // $(".coins-cont").append(el);
     },
     showModal() {
       this.is_modal_visible = true;
@@ -179,6 +181,7 @@ export default {
       }).then((response) => {
         if (response.error == null) {
           this.success = response.data.data;
+          this.requestData();
         } else {
           this.error = response.data.error;
         }
@@ -186,17 +189,18 @@ export default {
       });
     },
   },
+  resetMsg() {
+    this.success = null;
+    this.error = null;
+  },
   mounted() {
     this.requestData();
-  },
-  updated() {
-    this.refreshTable();
   },
 };
 </script>
 
 <style lang="scss" scoped>
-.btn-delete {
+.btn-add {
   width: 50px !important;
   height: 50px !important;
 }
