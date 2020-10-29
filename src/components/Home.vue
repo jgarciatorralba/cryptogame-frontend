@@ -25,7 +25,7 @@
             <coins
               v-else
               v-bind:coins="coins.data"
-              v-on:updated="replaceTable()"
+              v-on:updated="requestData()"
             ></coins>
           </div>
         </div>
@@ -63,14 +63,6 @@ export default {
         this.coins = response;
         this.loading = false;
       });
-    },
-    replaceTable() {
-      this.requestData();
-      // $("coins").remove();
-      // let el = $(
-      //   '<coins v-bind:coins="coins" v-on:updated="replaceTable()"></coins>'
-      // );
-      // $(".container-fluid").prepend(el);
     },
     resetMsg() {
       this.success = null;
