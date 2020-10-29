@@ -92,9 +92,9 @@ export default {
             let password = document.querySelector('input[name="password"]').value;
 
             formData.append("avatar", imagefile.files[0]);
-            if(password != "") formData.append("name", name);
+            formData.append("name", name);
             formData.append("email", email);
-            formData.append("password", password);
+            if(password != "") formData.append("password", password);
 
             this.$http.patch(userUpdateUrl, formData, {
                 headers: {
