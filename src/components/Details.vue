@@ -38,7 +38,9 @@
                   </span>
                 </h2>
               </div>
+
               <chart v-bind:details="details"></chart>
+
               <div v-if="!user" class="details-transaction">
                 <div class="coin-transaction mb-5">
                   <div>
@@ -62,43 +64,82 @@
                 <div class="details-transaction" id="buy">
                   <div>
                     <label class="custom-label">Price:</label>
-                    <input type="text" :value="'market value ('+coin.symbol+')'" disabled>
+                    <input
+                      type="text"
+                      :value="'market value (' + coin.symbol + ')'"
+                      disabled
+                    />
                   </div>
                   <div>
                     <div class="custom-control custom-switch mb-3">
-                      <input type="checkbox" class="custom-control-input" id="customSwitch1" v-on:click="buyMode">
-                      <label class="custom-control-label" for="customSwitch1"></label>
+                      <input
+                        type="checkbox"
+                        class="custom-control-input"
+                        id="customSwitch1"
+                        v-on:click="buyMode"
+                      />
+                      <label
+                        class="custom-control-label"
+                        for="customSwitch1"
+                      ></label>
                       <span>USD / Coin unity</span>
                     </div>
                   </div>
                   <div v-if="!trade.byQnty">
                     <label class="custom-label">Amount:</label>
-                    <input type="text" :value=trade.cost disabled><span> USD</span>
+                    <input type="text" :value="trade.cost" disabled /><span>
+                      USD</span
+                    >
                   </div>
                   <div v-else>
                     <label class="custom-label">Amount:</label>
-                    <input type="number" :value=trade.cost disabled><span> {{trade.coin.toUpperCase()}} Coins</span>
+                    <input type="number" :value="trade.cost" disabled /><span>
+                      {{ trade.coin.toUpperCase() }} Coins</span
+                    >
                   </div>
                   <div>
                     <label class="custom-label">% :</label>
-                    <input v-model="trade.amount" type="range" min="0" max="100" step="1" v-on:input="updateCost"><span> {{ trade.amount }}%</span>
+                    <input
+                      v-model="trade.amount"
+                      type="range"
+                      min="0"
+                      max="100"
+                      step="1"
+                      v-on:input="updateCost"
+                    /><span> {{ trade.amount }}%</span>
                   </div>
                   <button class="btn btn-primary" v-on:click="buy">BUY</button>
                 </div>
                 <div class="details-transaction d-none" id="sell">
                   <div>
                     <label class="custom-label">Price:</label>
-                    <input type="text" :value="'market value ('+coin.symbol+')'" disabled>
+                    <input
+                      type="text"
+                      :value="'market value (' + coin.symbol + ')'"
+                      disabled
+                    />
                   </div>
                   <div>
                     <label class="custom-label">Amount:</label>
-                    <input type="number" :value=trade.cost disabled><span> {{trade.coin.toUpperCase()}} Coins</span>
+                    <input type="number" :value="trade.cost" disabled /><span>
+                      {{ trade.coin.toUpperCase() }} Coins</span
+                    >
                   </div>
                   <div>
                     <label class="custom-label">% :</label>
-                    <input v-model="trade.amount" type="range" class="sell-range" min="0" max="100" step="1" v-on:input="updateCost"><span> {{ trade.amount }}%</span>
+                    <input
+                      v-model="trade.amount"
+                      type="range"
+                      class="sell-range"
+                      min="0"
+                      max="100"
+                      step="1"
+                      v-on:input="updateCost"
+                    /><span> {{ trade.amount }}%</span>
                   </div>
-                  <button class="btn btn-success" v-on:click="sell">SELL</button>
+                  <button class="btn btn-success" v-on:click="sell">
+                    SELL
+                  </button>
                 </div>
               </div>
             </div>
@@ -115,7 +156,15 @@ import AppHeader from "./partials/Header.vue";
 import Chart from "./partials/Chart";
 import Errors from "./partials/Errors.vue";
 import Sidebar from "../components/partials/Sidebar.vue";
-import { coinDetailsUrl, buyUrl, sellUrl, walletUrl, coinPriceUrl, userUpdateUrl, getHeader } from "../config/config.js";
+import {
+  coinDetailsUrl,
+  buyUrl,
+  sellUrl,
+  walletUrl,
+  coinPriceUrl,
+  userUpdateUrl,
+  getHeader,
+} from "../config/config.js";
 
 export default {
   props: ["coinId"],
@@ -135,13 +184,13 @@ export default {
         amount: 0,
         amountCoins: 0,
         cost: null,
-        type: 'buy',
+        type: "buy",
         byQnty: false,
         wallet: null,
-        price: null
+        price: null,
       },
       loading: true,
-      sidebarKey: 0
+      sidebarKey: 0,
     };
   },
   components: {
@@ -171,12 +220,14 @@ export default {
     },
     getUserData() {
       if (localStorage.getItem("user") !== null) {
-        this.$http.get(userUpdateUrl, { headers: getHeader() }).then((response) => {
-          this.user = response.data.data;
-          this.user.mostBought = 'Bitcoin';
-          this.getWallet();
-          this.getPrice();
-        });
+        this.$http
+          .get(userUpdateUrl, { headers: getHeader() })
+          .then((response) => {
+            this.user = response.data.data;
+            this.user.mostBought = "Bitcoin";
+            this.getWallet();
+            this.getPrice();
+          });
       }
     },
     getPrice() {
@@ -185,11 +236,15 @@ export default {
       });
     },
     getWallet() {
-      this.$http.get(`${walletUrl}/${this.trade.coin}`, {
-                headers: {'Authorization': 'Bearer ' + localStorage.getItem('access_token')}
-              }).then((response) => {
-        this.trade.wallet = response.data.data.quantity;
-      });
+      this.$http
+        .get(`${walletUrl}/${this.trade.coin}`, {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("access_token"),
+          },
+        })
+        .then((response) => {
+          this.trade.wallet = response.data.data.quantity;
+        });
     },
     transactionClick() {
       if (!event.target.classList.contains("active")) {
@@ -206,17 +261,17 @@ export default {
     },
     updateCost() {
       if (this.trade.type == "buy") {
-        let cost = (this.trade.amount * 0.01) * this.user.balance;
-        this.trade.coinsQnty =  cost / this.trade.price;
+        let cost = this.trade.amount * 0.01 * this.user.balance;
+        this.trade.coinsQnty = cost / this.trade.price;
         if (!this.trade.byQnty) {
           this.trade.cost = new Intl.NumberFormat("de-DE").format(cost);
         } else {
           this.trade.cost = this.trade.coinsQnty;
         }
       } else {
-          this.trade.coinsQnty = (this.trade.amount * 0.01) * this.trade.wallet;
-          this.trade.cost = this.trade.coinsQnty;
-        }
+        this.trade.coinsQnty = this.trade.amount * 0.01 * this.trade.wallet;
+        this.trade.cost = this.trade.coinsQnty;
+      }
     },
     buyMode() {
       this.trade.byQnty = !this.trade.byQnty;
@@ -226,54 +281,62 @@ export default {
       if (this.trade.coinsQnty > 0) {
         this.hideTradeForm();
         this.$http(buyUrl, {
-                    method: 'POST',
-                    headers: {
-                      'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
-                      'Content-Type': 'application/json'
-                    },
-                    data: {symbol: this.trade.coin, quantity: this.trade.coinsQnty }
-                  }).then((response) => {
-                    this.showTradeResponse(response);
-                  }).catch(error => {
-                    this.showTradeResponse(error.response);
-                  });
+          method: "POST",
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("access_token"),
+            "Content-Type": "application/json",
+          },
+          data: { symbol: this.trade.coin, quantity: this.trade.coinsQnty },
+        })
+          .then((response) => {
+            this.showTradeResponse(response);
+          })
+          .catch((error) => {
+            this.showTradeResponse(error.response);
+          });
       }
     },
     sell() {
       if (this.trade.coinsQnty > 0) {
         this.hideTradeForm();
         this.$http(sellUrl, {
-                    method: 'POST',
-                    headers: {
-                      'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
-                      'Content-Type': 'application/json'
-                    },
-                    data: {symbol: this.trade.coin, quantity: this.trade.coinsQnty }
-                  }).then((response) => {
-                      this.showTradeResponse(response);
-                  });
+          method: "POST",
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("access_token"),
+            "Content-Type": "application/json",
+          },
+          data: { symbol: this.trade.coin, quantity: this.trade.coinsQnty },
+        }).then((response) => {
+          this.showTradeResponse(response);
+        });
       }
     },
     hideTradeForm() {
-      let transactionDiv = document.querySelector('.coin-transaction');
-      let messageDiv = document.querySelector('#message');
-      transactionDiv.addEventListener('transitionend',function(e){
-        e.target.innerText = "Processing request..."
+      let transactionDiv = document.querySelector(".coin-transaction");
+      let messageDiv = document.querySelector("#message");
+      transactionDiv.addEventListener("transitionend", function (e) {
+        e.target.innerText = "Processing request...";
       });
     },
     showTradeResponse(res) {
-      let transactionDiv = document.querySelector('.coin-transaction');
-      transactionDiv.addEventListener('transitionend',() => {
-        if(res.data.error) {
-          transactionDiv.innerHTML = "<div class='bg-danger text-light p-2 text-center rounded'><span>"+res.data.error+"</span><div>"
+      let transactionDiv = document.querySelector(".coin-transaction");
+      transactionDiv.addEventListener("transitionend", () => {
+        if (res.data.error) {
+          transactionDiv.innerHTML =
+            "<div class='bg-danger text-light p-2 text-center rounded'><span>" +
+            res.data.error +
+            "</span><div>";
         } else {
-          transactionDiv.innerHTML = "<div class='bg-success text-light p-2 text-center rounded'><span>"+res.data.data+"</span><div>"
+          transactionDiv.innerHTML =
+            "<div class='bg-success text-light p-2 text-center rounded'><span>" +
+            res.data.data +
+            "</span><div>";
         }
-        transactionDiv.classList.add('fadein');
-      })
-      transactionDiv.classList.add('fadeout');
+        transactionDiv.classList.add("fadein");
+      });
+      transactionDiv.classList.add("fadeout");
       this.sidebarKey += 1;
-    }
+    },
   },
   mounted() {
     this.getCoinData();

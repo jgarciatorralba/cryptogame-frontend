@@ -52,7 +52,7 @@
       >
         <div class="modal-dialog shadow">
           <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header bg-light">
               <h5 class="modal-title">Insert new coin</h5>
               <button
                 type="button"
@@ -188,10 +188,10 @@ export default {
         this.hideModal();
       });
     },
-  },
-  resetMsg() {
-    this.success = null;
-    this.error = null;
+    resetMsg() {
+      this.success = null;
+      this.error = null;
+    },
   },
   mounted() {
     this.requestData();
