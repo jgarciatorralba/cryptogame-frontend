@@ -82,36 +82,8 @@ export default {
     sendForm(e) {
       let error = this.validateForm(e);
       if (error == null) {
-        // Ajax request
 
-        // this.$http({
-        //   method: "post",
-        //   url: "http://localhost:3000/reset",
-        //   data: {
-        //     email: this.email,
-        //   },
-        //   validateStatus: function (status) {
-        //     return status >= 200 && status <= 500;
-        //   },
-        // })
-        //   .then((response) => {
-        //     if (response.data.error !== null) {
-        //       this.error = response.data.error;
-        //     } else {
-        //       this.$router.push({
-        //         name: "Login",
-        //         params: {
-        //           success: response.data.data,
-        //         },
-        //       });
-        //     }
-        //   })
-        //   .catch((err) => {
-        //     console.log(err);
-        //     this.error = err.message;
-        //   });
-
-        fetch("http://localhost:3000/reset", {
+        fetch("http://localhost:3000/password/forgot", {
           method: "POST",
           body: JSON.stringify({
             email: this.email,
@@ -122,20 +94,14 @@ export default {
         })
           .then((response) => response.json())
           .then((data) => {
-            console.log(data);
-            if (data.error !== null) {
-              this.error = data.error;
-            } else {
               this.$router.push({
                 name: "Login",
                 params: {
-                  success: data.data,
+                  success: data.msg,
                 },
               });
-            }
           })
           .catch((e) => {
-            console.log(e);
             this.error = e.message;
           });
       } else {
