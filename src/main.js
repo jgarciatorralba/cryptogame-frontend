@@ -10,6 +10,7 @@ import Wallet from "./components/Wallet.vue";
 import Login from "./components/auth/Login.vue";
 import Register from "./components/auth/Register.vue";
 import Reset from "./components/auth/Reset.vue";
+import NewPassword from "./components/auth/NewPassword.vue";
 import Details from "./components/Details.vue";
 import NotFound from "./components/NotFound.vue";
 import Admin from "./components/Admin.vue";
@@ -86,6 +87,14 @@ const routes = [
     path: "/reset",
     name: "Reset",
     component: Reset,
+    meta: {
+      guest: true
+    }
+  },
+  {
+    path: "/newpassword",
+    name: "NewPassword",
+    component: NewPassword,
     meta: {
       guest: true
     }
