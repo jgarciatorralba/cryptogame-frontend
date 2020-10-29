@@ -17,12 +17,12 @@
                             <p class="h4">{{user.name}}</p>
                             <div class="row">
                                 <div class="col-5">
-                                    <small class="text-muted d-block">Ranking: #{{ user.ranking }}</small>
-                                    <small class="text-muted d-block">Wallet: ${{ new Intl.NumberFormat("de-DE").format(user.estimated) }}</small>
+                                    <small class="text-muted d-block"><span class="font-weight-bold d-block">Ranking</span> #{{ user.ranking }}</small>
+                                    <small class="text-muted d-block"><span class="font-weight-bold d-block">Most bought</span>  {{ user.mostBought }}</small>
                                 </div>
                                 <div class="col-6">
-                                    <small class="text-muted d-block">Balance: ${{ new Intl.NumberFormat("de-DE").format(user.balance) }}</small>
-                                    <small class="text-muted d-block">Most bought: {{ user.mostBought }}</small>
+                                    <small class="text-muted d-block"><span class="font-weight-bold d-block">Balance</span>  ${{ new Intl.NumberFormat("de-DE").format(user.balance) }}</small>
+                                    <small class="text-muted d-block"><span class="font-weight-bold d-block">Wallet</span>  ${{ new Intl.NumberFormat("de-DE").format(user.estimated) }}</small>
                                 </div>
                             </div>
                         </div>
