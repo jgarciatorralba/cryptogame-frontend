@@ -4,7 +4,7 @@ export const apiDomain = "http://localhost:3000/";
 // Auth URIs
 export const loginUrl = apiDomain + "login";
 export const registerUrl = apiDomain + "register";
-// export const resetUrl = apiDomain + "reset";
+export const resetUrl = apiDomain + "reset";
 
 // User URIs
 export let transactionsUrl = function(page, results) {
@@ -17,13 +17,19 @@ export const rankingUrl = apiDomain + "api/ranking";
 export const coinsTableUrl = apiDomain + "api/coins/"; // + page&limit (pagination)
 export const coinPriceUrl = apiDomain + "api/coin";
 export const userUpdateUrl = apiDomain + "user";
+export let coinChartUrl = function(symbol, days) {
+  if (days == 0) {
+    return apiDomain + "api/coin/" + symbol.toLowerCase() + "/8h";
+  } else if (days == 1) {
+    return apiDomain + "api/coin/" + symbol.toLowerCase() + "/24h";
+  } else if (days == 7) {
+    return apiDomain + "api/coin/" + symbol.toLowerCase() + "/7d";
+  }
+};
 
 // External API coingecko
 export let coinDetailsUrl = function(coinId) {
   return `https://api.coingecko.com/api/v3/coins/${coinId}?localization=false`;
-};
-export let coinChartUrl = function(id, currency, days) {
-  return `https://api.coingecko.com/api/v3/coins/${id}/market_chart?vs_currency=${currency}&days=${days}`;
 };
 
 // Admin URIs
