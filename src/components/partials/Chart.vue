@@ -47,24 +47,12 @@ export default {
       loading: true,
       chartData: null,
       symbol: null,
+      interval: null,
     };
   },
   methods: {
     getData() {
-      // fetch(
-      //   coinChartUrl(this.details.id, this.details.currency, this.details.days)
-      // )
-      //   .then((response) => response.json())
-      //   .then((data) => {
-      //     this.chartData = data.prices;
-      //     this.loading = false;
-      //   })
-      //   .catch((e) => {
-      //     console.log(e);
-      //     this.loading = false;
-      //   });
-
-      fetch(`http://localhost:3000/api/coin/${this.symbol.toLowerCase()}/24h`)
+      fetch(coinChartUrl(this.symbol, this.details.days))
         .then((response) => response.json())
         .then((data) => {
           this.chartData = data.data.prices;
@@ -186,38 +174,7 @@ export default {
       $(".cont-chart").append(chart);
     },
     refreshChart() {
-      let url = "";
-      // if (this.details.days == 0) {
-      //   let to = Date.now() / 1000;
-      //   let from = to - 60 * 60 * 8;
-      //   url = `https://api.coingecko.com/api/v3/coins/${this.details.id}/market_chart/range?vs_currency=${this.details.currency}&from=${from}&to=${to}`;
-      // } else {
-      //   url = coinChartUrl(
-      //     this.details.id,
-      //     this.details.currency,
-      //     this.details.days
-      //   );
-      // }
-      if (this.details.days == 0) {
-        url = `http://localhost:3000/api/coin/${this.symbol.toLowerCase()}/8h`;
-      } else if (this.details.days == 1) {
-        url = `http://localhost:3000/api/coin/${this.symbol.toLowerCase()}/1d`;
-      } else if (this.details.days == 7) {
-        url = `http://localhost:3000/api/coin/${this.symbol.toLowerCase()}/7d`;
-      }
-
-      // fetch(url)
-      //   .then((response) => response.json())
-      //   .then((data) => {
-      //     this.chartData = data.prices;
-      //     this.destroyChart();
-      //     this.createChart();
-      //   })
-      //   .catch((e) => {
-      //     console.log(e);
-      //   });
-
-      fetch(url)
+      fetch(coinChartUrl(this.symbol, this.details.days))
         .then((response) => response.json())
         .then((data) => {
           this.chartData = data.data.prices;
@@ -238,20 +195,7 @@ export default {
       $("#btn-1d").prop("disabled", false);
       $("#btn-7d").prop("disabled", true);
 
-      // fetch(
-      //   coinChartUrl(this.details.id, this.details.currency, this.details.days)
-      // )
-      //   .then((response) => response.json())
-      //   .then((data) => {
-      //     this.chartData = data.prices;
-      //     this.destroyChart();
-      //     this.createChart();
-      //   })
-      //   .catch((e) => {
-      //     console.log(e);
-      //   });
-
-      fetch(`http://localhost:3000/api/coin/${this.symbol.toLowerCase()}/7d`)
+      fetch(coinChartUrl(this.symbol, this.details.days))
         .then((response) => response.json())
         .then((data) => {
           this.chartData = data.data.prices;
@@ -272,20 +216,7 @@ export default {
       $("#btn-1d").prop("disabled", true);
       $("#btn-7d").prop("disabled", false);
 
-      // fetch(
-      //   coinChartUrl(this.details.id, this.details.currency, this.details.days)
-      // )
-      //   .then((response) => response.json())
-      //   .then((data) => {
-      //     this.chartData = data.prices;
-      //     this.destroyChart();
-      //     this.createChart();
-      //   })
-      //   .catch((e) => {
-      //     console.log(e);
-      //   });
-
-      fetch(`http://localhost:3000/api/coin/${this.symbol.toLowerCase()}/24h`)
+      fetch(coinChartUrl(this.symbol, this.details.days))
         .then((response) => response.json())
         .then((data) => {
           this.chartData = data.data.prices;
@@ -308,20 +239,7 @@ export default {
       $("#btn-1d").prop("disabled", false);
       $("#btn-7d").prop("disabled", false);
 
-      // fetch(
-      //   `https://api.coingecko.com/api/v3/coins/${this.details.id}/market_chart/range?vs_currency=${this.details.currency}&from=${from}&to=${to}`
-      // )
-      //   .then((response) => response.json())
-      //   .then((data) => {
-      //     this.chartData = data.prices;
-      //     this.destroyChart();
-      //     this.createChart();
-      //   })
-      //   .catch((e) => {
-      //     console.log(e);
-      //   });
-
-      fetch(`http://localhost:3000/api/coin/${this.symbol.toLowerCase()}/8h`)
+      fetch(coinChartUrl(this.symbol, this.details.days))
         .then((response) => response.json())
         .then((data) => {
           this.chartData = data.data.prices;
@@ -338,10 +256,13 @@ export default {
     this.getData();
 
     // Set Interval to refresh data every 5 min
-    setInterval(this.refreshChart, 5 * 60 * 1000);
+    this.interval = setInterval(this.refreshChart, 5 * 60 * 1000);
   },
   updated() {
     this.createChart();
+  },
+  destroyed() {
+    clearInterval(this.interval);
   },
 };
 </script>

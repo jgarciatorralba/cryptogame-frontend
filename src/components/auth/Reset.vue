@@ -53,6 +53,7 @@
 
 <script>
 import Errors from "../partials/Errors.vue";
+import { resetUrl } from "../../config/config.js";
 
 export default {
   data() {
@@ -83,35 +84,7 @@ export default {
       let error = this.validateForm(e);
       if (error == null) {
         // Ajax request
-
-        // this.$http({
-        //   method: "post",
-        //   url: "http://localhost:3000/reset",
-        //   data: {
-        //     email: this.email,
-        //   },
-        //   validateStatus: function (status) {
-        //     return status >= 200 && status <= 500;
-        //   },
-        // })
-        //   .then((response) => {
-        //     if (response.data.error !== null) {
-        //       this.error = response.data.error;
-        //     } else {
-        //       this.$router.push({
-        //         name: "Login",
-        //         params: {
-        //           success: response.data.data,
-        //         },
-        //       });
-        //     }
-        //   })
-        //   .catch((err) => {
-        //     console.log(err);
-        //     this.error = err.message;
-        //   });
-
-        fetch("http://localhost:3000/reset", {
+        fetch(resetUrl, {
           method: "POST",
           body: JSON.stringify({
             email: this.email,
