@@ -75,7 +75,7 @@ export default {
           if (this.page == 1) this.totalPages = response.data.totalPages;
           this.coins = response;
           this.loading = false;
-          console.log(response.data.data);
+          // console.log(response.data.data);
         });
     },
     resetMsg() {
