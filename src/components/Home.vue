@@ -27,6 +27,7 @@
               v-bind:coins="coins.data"
               v-on:updated="replaceTable()"
             ></coins>
+            <button class="btn btn-light border mb-5 col-12" v-if="page < totalPages" @click="loadMoreCoins">More coins...</button>
           </div>
         </div>
       </div>
@@ -49,6 +50,9 @@ export default {
       loading: true,
       error: null,
       success: null,
+      page: 1,
+      limit: 15,
+      totalPages: null
     };
   },
   components: {
@@ -59,23 +63,28 @@ export default {
   },
   methods: {
     requestData() {
-      this.$http.get(coinsTableUrl + 1 + "&" + 20).then((response) => {
+      this.$http.get(coinsTableUrl + 1 + "&" + (this.limit*this.page)).then((response) => {
+        if (this.page == 1) this.totalPages = response.data.totalPages;
         this.coins = response;
         this.loading = false;
+        console.log(response.data.data);
       });
     },
     replaceTable() {
       this.requestData();
-      // $("coins").remove();
-      // let el = $(
-      //   '<coins v-bind:coins="coins" v-on:updated="replaceTable()"></coins>'
-      // );
-      // $(".container-fluid").prepend(el);
     },
     resetMsg() {
       this.success = null;
       this.error = null;
     },
+    loadMoreCoins() {
+      if (this.page < this.totalPages) {
+        this.page++;
+        this.$http.get(coinsTableUrl + this.page + "&" + this.limit).then((response) => {
+          this.coins.data.data = this.coins.data.data.concat(response.data.data)
+        });
+      }
+    }
   },
   mounted() {
     this.requestData();
