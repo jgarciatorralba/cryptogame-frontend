@@ -158,8 +158,7 @@ export default {
           if (data.error == undefined) {
             this.coin = data;
             this.trade.coin = data.symbol;
-            this.getWallet();
-            this.getPrice();
+            this.getUserData();
           } else {
             this.error = data.error;
           }
@@ -171,10 +170,14 @@ export default {
         });
     },
     getUserData() {
-      this.$http.get(userUpdateUrl, { headers: getHeader() }).then((response) => {
-				this.user = response.data.data;
-				this.user.mostBought = 'Bitcoin';
-			});
+      if (localStorage.getItem("user") !== null) {
+        this.$http.get(userUpdateUrl, { headers: getHeader() }).then((response) => {
+          this.user = response.data.data;
+          this.user.mostBought = 'Bitcoin';
+          this.getWallet();
+          this.getPrice();
+        });
+      }
     },
     getPrice() {
       this.$http.get(`${coinPriceUrl}/${this.trade.coin}`).then((response) => {
@@ -274,7 +277,6 @@ export default {
   },
   mounted() {
     this.getCoinData();
-    this.getUserData();
     setInterval(this.getCoinData, 5 * 60 * 1000);
   },
 };
