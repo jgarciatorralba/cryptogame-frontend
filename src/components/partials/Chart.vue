@@ -256,6 +256,7 @@ export default {
     this.getData();
 
     // Set Interval to refresh data every 5 min
+    if (this.interval) clearInterval(this.interval);
     this.interval = setInterval(this.refreshChart, 5 * 60 * 1000);
   },
   updated() {
