@@ -191,6 +191,7 @@ export default {
       if (!event.target.classList.contains("active")) {
         let operation = event.target.innerText.toLowerCase();
         this.trade.type = operation;
+        this.updateCost();
         document.querySelectorAll(".details-transaction").forEach((div) => {
           div.classList.add("d-none");
         });
