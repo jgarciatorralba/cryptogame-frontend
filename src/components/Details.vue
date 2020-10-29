@@ -3,7 +3,7 @@
     <app-header></app-header>
     <div class="container">
       <div class="row">
-        <sidebar v-if="user"></sidebar>
+        <sidebar v-if="user" :key="sidebarKey"></sidebar>
         <div v-else class="col-lg-2"></div>
         <div class="col-lg-8">
           <div v-if="loading">
@@ -141,6 +141,7 @@ export default {
         price: null
       },
       loading: true,
+      sidebarKey: 0
     };
   },
   components: {
@@ -268,6 +269,7 @@ export default {
         transactionDiv.classList.add('fadein');
       })
       transactionDiv.classList.add('fadeout');
+      this.sidebarKey += 1;
     }
   },
   mounted() {
