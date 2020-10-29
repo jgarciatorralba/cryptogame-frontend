@@ -52,7 +52,7 @@
       >
         <div class="modal-dialog shadow">
           <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header bg-light">
               <h5 class="modal-title">Insert new coin</h5>
               <button
                 type="button"

@@ -8,6 +8,30 @@
         <canvas id="myChart"></canvas>
       </div>
     </div>
+    <div class="button-cont">
+      <button
+        @click="swapTo8h()"
+        id="btn-8h"
+        class="btn btn-light border btn-sm"
+      >
+        <small>8h</small>
+      </button>
+      <button
+        @click="swapTo1d()"
+        id="btn-1d"
+        class="btn btn-light border btn-sm"
+        disabled
+      >
+        <small>1d</small>
+      </button>
+      <button
+        @click="swapTo7d()"
+        id="btn-7d"
+        class="btn btn-light border btn-sm"
+      >
+        <small>7d</small>
+      </button>
+    </div>
   </div>
 </template>
 
@@ -47,6 +71,20 @@ export default {
         p.addClass("my-2 text-center");
         $(".chart").append(p);
       } else {
+        let unit;
+        let callback;
+        if (this.details.days == 7) {
+          unit = "days";
+          callback = function (value, index, values) {
+            return moment(value).format("MMM Do");
+          };
+        } else {
+          unit = "hour";
+          callback = function (value, index, values) {
+            return value;
+          };
+        }
+
         let labels = [];
         let data = [];
         this.chartData.forEach((item) => {
@@ -78,7 +116,7 @@ export default {
                   type: "time",
                   time: {
                     // tooltipFormat: "h:mm:ss a",
-                    unit: "hour",
+                    unit: unit,
                   },
                   ticks: {
                     source: "auto",
@@ -86,6 +124,7 @@ export default {
                     maxTicksLimit: 10,
                     maxRotation: 0,
                     minRotation: 0,
+                    callback: callback,
                   },
                 },
               ],
@@ -135,9 +174,100 @@ export default {
       $(".cont-chart").append(chart);
     },
     refreshChart() {
-      this.getData();
-      this.destroyChart();
-      this.createChart();
+      let url = "";
+      if (this.details.days == 0) {
+        let to = Date.now() / 1000;
+        let from = to - 60 * 60 * 8;
+        url = `https://api.coingecko.com/api/v3/coins/${this.details.id}/market_chart/range?vs_currency=${this.details.currency}&from=${from}&to=${to}`;
+      } else {
+        url = coinChartUrl(
+          this.details.id,
+          this.details.currency,
+          this.details.days
+        );
+      }
+
+      fetch(url)
+        .then((response) => response.json())
+        .then((data) => {
+          this.chartData = data.prices;
+          this.destroyChart();
+          this.createChart();
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+    },
+    swapTo7d() {
+      this.details.days = 7;
+
+      $("#btn-8h").removeClass("active");
+      $("#btn-1d").removeClass("active");
+      $("#btn-7d").addClass("active");
+      $("#btn-8h").prop("disabled", false);
+      $("#btn-1d").prop("disabled", false);
+      $("#btn-7d").prop("disabled", true);
+
+      fetch(
+        coinChartUrl(this.details.id, this.details.currency, this.details.days)
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          this.chartData = data.prices;
+          this.destroyChart();
+          this.createChart();
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+    },
+    swapTo1d() {
+      this.details.days = 1;
+
+      $("#btn-8h").removeClass("active");
+      $("#btn-1d").addClass("active");
+      $("#btn-7d").removeClass("active");
+      $("#btn-8h").prop("disabled", false);
+      $("#btn-1d").prop("disabled", true);
+      $("#btn-7d").prop("disabled", false);
+
+      fetch(
+        coinChartUrl(this.details.id, this.details.currency, this.details.days)
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          this.chartData = data.prices;
+          this.destroyChart();
+          this.createChart();
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+    },
+    swapTo8h() {
+      this.details.days = 0;
+      let to = Date.now() / 1000;
+      let from = to - 60 * 60 * 8;
+
+      $("#btn-8h").addClass("active");
+      $("#btn-1d").removeClass("active");
+      $("#btn-7d").removeClass("active");
+      $("#btn-8h").prop("disabled", true);
+      $("#btn-1d").prop("disabled", false);
+      $("#btn-7d").prop("disabled", false);
+
+      fetch(
+        `https://api.coingecko.com/api/v3/coins/${this.details.id}/market_chart/range?vs_currency=${this.details.currency}&from=${from}&to=${to}`
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          this.chartData = data.prices;
+          this.destroyChart();
+          this.createChart();
+        })
+        .catch((e) => {
+          console.log(e);
+        });
     },
   },
   mounted() {
@@ -152,5 +282,13 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+.container {
+  position: relative;
+}
+.button-cont {
+  position: absolute;
+  top: 1vh;
+  right: 1vw;
+}
 </style>
