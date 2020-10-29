@@ -105,7 +105,6 @@ export default {
       this.$http
         .get(transactionsUrl(this.page, this.limit), { headers: getHeader() }).then((response) => {
           this.transactions = response.data;
-          console.log(response.data.data.trades.length);
           if(response.data.data.trades.length < this.limit) this.end = true;
         });
     },
