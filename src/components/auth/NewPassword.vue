@@ -12,19 +12,19 @@
           />
         </router-link>
 
-        <h1 class="h3 font-weight-normal">Forgot your password?</h1>
+        <h1 class="h3 font-weight-normal">Password reset</h1>
         <p class="mb-3 text-black-50">
-          Enter your email to reset your password.
+          Enter your new password and take a note!
         </p>
 
-        <label for="resetEmail" class="sr-only"> Email address </label>
+        <label for="resetPassword" class="sr-only"> New Password </label>
         <input
-          type="email"
-          v-model="email"
-          id="resetEmail"
-          name="resetEmail"
+          type="password"
+          v-model="password"
+          id="resetPassword"
+          name="password"
           class="form-control"
-          placeholder="Email address"
+          placeholder="New Password"
           required
           autofocus
         />
@@ -53,14 +53,14 @@
 
 <script>
 import Errors from "../partials/Errors.vue";
-import { resetUrl } from "../../config/config.js";
 
 export default {
   data() {
     return {
-      email: "",
+      password: "",
       error: null,
       success: null,
+      token: this.$route.query.token
     };
   },
   components: {
@@ -72,10 +72,10 @@ export default {
 
       let error = "";
 
-      let email = this.email;
-      const regExEmail = /\S+@\S+/;
-      if (!regExEmail.test(email)) {
-        error = "Invalid email format";
+      let password = this.password;
+      const regExPassword = /^.{6,}$/;
+      if (!regExPassword.test(password)) {
+        error = "Password length must be 6 characters or more";
       }
 
       return error !== "" ? error : null;
@@ -83,21 +83,19 @@ export default {
     sendForm(e) {
       let error = this.validateForm(e);
       if (error == null) {
-        fetch("http://localhost:3000/password/forgot", {
+
+        this.$http("http://localhost:3000/password/reset", {
           method: "POST",
-          body: JSON.stringify({
-            email: this.email,
-          }),
           headers: {
-            "Content-Type": "application/json",
+            Authorization: 'Bearer ' + this.token,
           },
+          data: { password: this.password },
         })
-          .then((response) => response.json())
           .then((data) => {
             this.$router.push({
               name: "Login",
               params: {
-                success: data.msg,
+                success: data.data.data,
               },
             });
           })
