@@ -52,9 +52,11 @@
 <script>
 export default {
   props: ["coins"],
+  interval: null,
   methods: {
     timeout() {
-      setInterval(this.emit, 1000);
+      if (this.interval) clearInterval(this.interval);
+      this.interval = setInterval(this.emit, 1000);
     },
     emit() {
       this.$emit("updated");
@@ -62,6 +64,9 @@ export default {
   },
   mounted() {
     this.timeout();
+  },
+  destroyed() {
+    clearInterval(this.interval);
   },
 };
 </script>
