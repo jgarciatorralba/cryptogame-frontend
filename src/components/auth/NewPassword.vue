@@ -53,6 +53,7 @@
 
 <script>
 import Errors from "../partials/Errors.vue";
+import { newPasswordUrl } from "../../config/config.js";
 
 export default {
   data() {
@@ -60,7 +61,7 @@ export default {
       password: "",
       error: null,
       success: null,
-      token: this.$route.query.token
+      token: this.$route.query.token,
     };
   },
   components: {
@@ -83,11 +84,10 @@ export default {
     sendForm(e) {
       let error = this.validateForm(e);
       if (error == null) {
-
-        this.$http("http://localhost:3000/password/reset", {
+        this.$http(newPasswordUrl, {
           method: "POST",
           headers: {
-            Authorization: 'Bearer ' + this.token,
+            Authorization: "Bearer " + this.token,
           },
           data: { password: this.password },
         })

@@ -83,7 +83,7 @@ export default {
     sendForm(e) {
       let error = this.validateForm(e);
       if (error == null) {
-        fetch("http://localhost:3000/password/forgot", {
+        fetch(resetUrl, {
           method: "POST",
           body: JSON.stringify({
             email: this.email,

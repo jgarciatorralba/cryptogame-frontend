@@ -4,7 +4,8 @@ export const apiDomain = "http://localhost:3000/";
 // Auth URIs
 export const loginUrl = apiDomain + "login";
 export const registerUrl = apiDomain + "register";
-export const resetUrl = apiDomain + "reset";
+export const resetUrl = apiDomain + "password/forgot";
+export const newPasswordUrl = apiDomain + "password/reset";
 
 // User URIs
 export let transactionsUrl = function(page, results) {
