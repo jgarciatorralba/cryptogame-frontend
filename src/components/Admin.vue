@@ -188,10 +188,10 @@ export default {
         this.hideModal();
       });
     },
-  },
-  resetMsg() {
-    this.success = null;
-    this.error = null;
+    resetMsg() {
+      this.success = null;
+      this.error = null;
+    },
   },
   mounted() {
     this.requestData();
