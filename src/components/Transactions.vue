@@ -9,7 +9,7 @@
           <p v-if="loading" class="text-center mt-5">
             Loading transactions data...
           </p>
-          <div v-else class="col-8 mx-auto">
+          <div v-else class="col-9 mx-auto">
             <p v-if="transactions.error" class="text-center mt-5">
               {{ transactions.error }}
             </p>
