@@ -174,6 +174,7 @@ export default {
       error: null,
       success: null,
       user: null,
+      interval: null,
       details: {
         id: this.coinId,
         currency: "usd",
@@ -340,7 +341,11 @@ export default {
   },
   mounted() {
     this.getCoinData();
-    setInterval(this.getCoinData, 5 * 60 * 1000);
+    if (this.interval) clearInterval(this.interval);
+    this.interval = setInterval(this.getCoinData, 5 * 60 * 1000);
+  },
+  destroyed() {
+    clearInterval(this.interval);
   },
 };
 </script>
