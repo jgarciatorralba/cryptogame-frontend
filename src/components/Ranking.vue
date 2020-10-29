@@ -30,12 +30,12 @@
               <div class="col-7">
                 <p class="h6">{{ player.name }}</p>
                 <small class="d-block"
-                  >Total: ${{
+                  ><span class="font-weight-bold text-muted">Total:</span> ${{
                     new Intl.NumberFormat("de-DE").format(player.total)
                   }}
                   USD</small
                 >
-                <small class="">Most bought: Bitcoin</small>
+                <small class=""><span class="font-weight-bold text-muted">Most bought:</span> Bitcoin</small>
               </div>
               <p class="col-3 h6 my-auto text-right">
                 <b-icon
