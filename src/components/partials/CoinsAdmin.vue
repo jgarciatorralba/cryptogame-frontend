@@ -63,6 +63,7 @@ export default {
         .then((response) => {
           if (response.error == null) {
             this.success = response.data.data;
+            this.$emit("updated");
           } else {
             this.error = response.data.error;
           }
@@ -79,9 +80,6 @@ export default {
     } else {
       this.success = this.$route.params.success;
     }
-  },
-  updated() {
-    this.$emit("updated");
   },
 };
 </script>
