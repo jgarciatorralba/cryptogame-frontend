@@ -6,6 +6,10 @@ _Cryptocurrency, Vue.js, JavaScript, Frontend_
 
 In this project, we developed a game app based in cryptocurrencies with Vue.js (frontend) which requires data to an API developed with node.js (backend).
 
+## 📷 Screenshots
+
+![img](https://live.staticflickr.com/65535/50546755182_92a7d0eb91_o.jpg)
+
 ### 📂 Content
 
 This repository contains only the frontend section, being the backend section stored separately in an independent repo ([here](https://code.assemblerschool.com/christian-callau/cryptogame-backend.git)).
