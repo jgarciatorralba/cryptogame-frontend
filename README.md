@@ -40,7 +40,14 @@ It contains the files and folders detailed below:
 
 ## ✒️ Authors
 
-- **Yulia Belyakova** &#8594; [yulia-belyakova](https://code.assemblerschool.com/yulia-belyakova/)
-- **Guilherme Carra** &#8594; [guilherme-carra](https://code.assemblerschool.com/guilherme-carra/)
-- **Christian Callau** &#8594; [christian-callau](https://code.assemblerschool.com/christian-callau/)
-- **Jorge García Torralba** &#8594; [jorge-garcia](https://code.assemblerschool.com/jorge-garcia/)
+- Frontend by:
+
+  - **Guilherme Carra** &#8594; [guilherme-carra](https://code.assemblerschool.com/guilherme-carra/)
+
+  - **Jorge García Torralba** &#8594; [jorge-garcia](https://code.assemblerschool.com/jorge-garcia/)
+
+- Backend by:
+
+  - **Yulia Belyakova** &#8594; [yulia-belyakova](https://code.assemblerschool.com/yulia-belyakova/)
+
+  - **Christian Callau** &#8594; [christian-callau](https://code.assemblerschool.com/christian-callau/)
